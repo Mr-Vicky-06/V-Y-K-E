@@ -1,0 +1,478 @@
+[
+  {
+    "category": "Baseline: direct open",
+    "phrase": "open notepad",
+    "type": "call",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "notepad"
+        }
+      }
+    ],
+    "confidence": 0.8114,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "Query 'open notepad' -> app_name 'notepad'.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "suppressed_calls": [],
+      "reasoning": "Query 'open notepad' -> app_name 'notepad'.",
+      "confidence": 0.8114,
+      "prefill_tps": 354.3,
+      "decode_tps": 201.0,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Baseline: direct search",
+    "phrase": "search files for quarterly report",
+    "type": "call",
+    "calls": [
+      {
+        "name": "search_files",
+        "arguments": {
+          "query": "quarterly report"
+        }
+      }
+    ],
+    "confidence": 0.6989,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "query 'quarterly report' -> query 'quarterly report'; no other params needed",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "quarterly report"
+          }
+        }
+      ],
+      "suppressed_calls": [],
+      "reasoning": "query 'quarterly report' -> query 'quarterly report'; no other params needed",
+      "confidence": 0.6989,
+      "prefill_tps": 335.5,
+      "decode_tps": 215.8,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Negation: do not open",
+    "phrase": "don't open notepad",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.5997,
+    "ungrounded": [],
+    "negation": true,
+    "reasoning": "'don't open notepad' means user wants to open notepad -> app_name 'notepad'.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "reasoning": "'don't open notepad' means user wants to open notepad -> app_name 'notepad'.",
+      "confidence": 0.5997,
+      "prefill_tps": 402.2,
+      "decode_tps": 221.8,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": true
+      }
+    }
+  },
+  {
+    "category": "Negation: cancel/nevermind",
+    "phrase": "do not set a reminder for 5pm",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.016,
+    "ungrounded": [
+      "set_reminder.when"
+    ],
+    "negation": true,
+    "reasoning": "'do not set a reminder' -> set_reminder; '5pm' -> time; message 'do not set' from query; no date given so default to today.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Do not set",
+            "when": "17:00"
+          }
+        }
+      ],
+      "reasoning": "'do not set a reminder' -> set_reminder; '5pm' -> time; message 'do not set' from query; no date given so default to today.",
+      "confidence": 0.016,
+      "prefill_tps": 456.2,
+      "decode_tps": 225.1,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [
+          "set_reminder.when"
+        ],
+        "negation": true
+      }
+    }
+  },
+  {
+    "category": "Vague: pronoun reference",
+    "phrase": "open that app we used yesterday",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.0576,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "'open that app' -> open_app; 'we used yesterday' is context, not a parameter.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "we used yesterday"
+          }
+        }
+      ],
+      "reasoning": "'open that app' -> open_app; 'we used yesterday' is context, not a parameter.",
+      "confidence": 0.0576,
+      "prefill_tps": 445.3,
+      "decode_tps": 216.4,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Vague: unclear target",
+    "phrase": "find the file about that thing",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.082,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "'find the file about that thing' -> search_files with query 'that thing'.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "that thing"
+          }
+        }
+      ],
+      "reasoning": "'find the file about that thing' -> search_files with query 'that thing'.",
+      "confidence": 0.082,
+      "prefill_tps": 351.6,
+      "decode_tps": 222.0,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Two actions: apps",
+    "phrase": "open notepad and open calculator",
+    "type": "call",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "notepad"
+        }
+      },
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "calculator"
+        }
+      }
+    ],
+    "confidence": 0.8451,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "'notepad' -> app_name 'notepad', 'calculator' -> app_name 'calculator'. Two calls to open_app.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "suppressed_calls": [],
+      "reasoning": "'notepad' -> app_name 'notepad', 'calculator' -> app_name 'calculator'. Two calls to open_app.",
+      "confidence": 0.8451,
+      "prefill_tps": 401.0,
+      "decode_tps": 205.7,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Two actions: reminder + app",
+    "phrase": "set a reminder to call mom tomorrow at 10:00 and open paint",
+    "type": "call",
+    "calls": [
+      {
+        "name": "set_reminder",
+        "arguments": {
+          "message": "Call mom",
+          "when": "2026-11-11T10:00:00"
+        }
+      },
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "paint"
+        }
+      }
+    ],
+    "confidence": 0.5893,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "'call mom' -> message 'call mom'; 'tomorrow at 10:00' -> when '2026-11-10T10:00:00'; 'paint' -> app_name 'paint'",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Call mom",
+            "when": "2026-11-11T10:00:00"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "suppressed_calls": [],
+      "reasoning": "'call mom' -> message 'call mom'; 'tomorrow at 10:00' -> when '2026-11-10T10:00:00'; 'paint' -> app_name 'paint'",
+      "confidence": 0.5893,
+      "prefill_tps": 422.5,
+      "decode_tps": 129.0,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Off-topic: general QA",
+    "phrase": "what is the capital of France?",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.9514,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "No tool available for geographic information.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [],
+      "reasoning": "No tool available for geographic information.",
+      "confidence": 0.9514,
+      "prefill_tps": 242.1,
+      "decode_tps": 152.9,
+      "peak_ram_mb": 119.5
+    }
+  },
+  {
+    "category": "Off-topic: conversational",
+    "phrase": "tell me a funny joke",
+    "type": "call",
+    "calls": [
+      {
+        "name": "search_files",
+        "arguments": {
+          "query": "funny joke"
+        }
+      }
+    ],
+    "confidence": 0.2104,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "'funny joke' is a search query for search_files.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "funny joke"
+          }
+        }
+      ],
+      "suppressed_calls": [],
+      "reasoning": "'funny joke' is a search query for search_files.",
+      "confidence": 0.2104,
+      "prefill_tps": 255.2,
+      "decode_tps": 158.3,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Missing arg: bare verb open",
+    "phrase": "open",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.0407,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "Query 'open' maps to open_app tool. No app_name specified, so default app_name is used.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": ""
+          }
+        }
+      ],
+      "reasoning": "Query 'open' maps to open_app tool. No app_name specified, so default app_name is used.",
+      "confidence": 0.0407,
+      "prefill_tps": 252.7,
+      "decode_tps": 150.2,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  },
+  {
+    "category": "Missing arg: bare reminder",
+    "phrase": "set a reminder",
+    "type": "call",
+    "calls": [],
+    "confidence": 0.0137,
+    "ungrounded": [],
+    "negation": false,
+    "reasoning": "Query asks for reminder. set_reminder tool. message 'reminder' from query.",
+    "raw": {
+      "type": "call",
+      "success": true,
+      "error": null,
+      "error_code": null,
+      "reason": null,
+      "function_calls": [],
+      "suppressed_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Reminder",
+            "when": ""
+          }
+        }
+      ],
+      "reasoning": "Query asks for reminder. set_reminder tool. message 'reminder' from query.",
+      "confidence": 0.0137,
+      "prefill_tps": 282.0,
+      "decode_tps": 167.4,
+      "peak_ram_mb": 119.5,
+      "validation": {
+        "ungrounded": [],
+        "negation": false
+      }
+    }
+  }
+]

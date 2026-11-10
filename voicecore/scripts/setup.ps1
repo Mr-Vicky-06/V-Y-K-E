@@ -13,7 +13,7 @@ if (-not (Test-Path .venv)) { python -m venv .venv }
 python -m pip install --upgrade pip
 
 # 3. Dependencies (mic extra = numpy, soxr, sounddevice)
-pip install "cactus-compute[mic]" pytest pynput
+pip install "cactus-compute[mic]==4.1.0" pytest pynput
 pip install -e .
 
 # 4. Privacy: disable telemetry for this session AND for future sessions

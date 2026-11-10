@@ -12,15 +12,15 @@ You are the lead developer building VYKE (library name: voicecore): an offline v
 ## 2. Models (the core of the system)
 - Speech-to-text: **Whistle** — https://huggingface.co/Cactus-Compute/whistle (16.9 MB, CPU, Apache-2.0; en/de/fr/es/it/nl/pl).
 - LLM / tool router: **Needle 3** — https://huggingface.co/Cactus-Compute/needle3 and https://github.com/cactus-compute/needle.
-- Install: `pip install "cactus-needle[mic]"`, then `import needle`. Do **not** use `cactus-compute` / `import cactus` (a different API shown on one model card; see the discrepancy note in `docs/03_TECH_STACK.md`).
-- Set `NEEDLE_TELEMETRY=0` and `DO_NOT_TRACK=1` before importing `needle`.
+- Install: `pip install "cactus-compute[mic]==4.1.0"`. Access via `voicecore/engine.py` adapter (see DECISION-001 in `docs/DECISIONS.md`).
+- Set `CACTUS_TELEMETRY=0`, `NEEDLE_TELEMETRY=0` and `DO_NOT_TRACK=1` before importing engine components.
 
 ## 3. Working agreement (non-negotiable)
-1. **Never invent an API.** Before using any `needle` call, check it against the installed package (`inspect.signature`, `help()`), the README, and the real return value. Paste the evidence in the milestone report.
+1. **Never invent an API.** Before using any engine call, check it against the installed package (`inspect.signature`, `help()`), the README, and the real return value. Paste the evidence in the milestone report.
 2. **Build in milestones M0→M5** (PRD). After each milestone: run its acceptance proof from `docs/08`, write a report (what ran, raw output trimmed, passed, NOT tested, open questions), then **stop and wait for my go-ahead**.
 3. **No "should work."** Anything you claim works must be backed by a command I can run. Say plainly what you could not verify.
 4. **Small, reviewable commits**; one concern per change. Don't rewrite a module to fix a bug until you've stated and checked the cause.
-5. **No new dependencies or frameworks without a stated need.** P0 uses only: `cactus-needle[mic]`, `pynput` (pending spike S4), `pytest`, and the standard library.
+5. **No new dependencies or frameworks without a stated need.** P0 uses only: `cactus-compute[mic]==4.1.0`, `pynput` (pending spike S4), `pytest`, and the standard library.
 6. **Security rules in `docs/06` are hard constraints**: no `shell=True`, allowlisted apps only, confined file search, T2 tools not implemented, no network calls in runtime code, no audio retained by default, hotkey listener reacts only to the configured combo.
 7. Windows 11 is the target. Use `pathlib`; no bash-only scripts.
 8. When a fact is uncertain, label it: **verified / supported by evidence / hypothesis needing a test / unknown.**

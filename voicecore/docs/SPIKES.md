@@ -125,6 +125,37 @@ Executed script: `scripts/test_spike_s2.py` against live weights `needle3.cact`.
 
 ---
 
+## Spike S2b: Diagnostic Evaluation of `complete()` on Edge Cases
+
+Executed script: `scripts/test_spike_s2b.py` against live weights `needle3.cact` using the three P0 tool schemas (`open_app`, `set_reminder`, `search_files`).
+
+### Test Results Table
+| Category | Utterance | Calls Generated | Confidence | `validation.negation` | `validation.ungrounded` | Gate Action |
+|---|---|---|---|---|---|---|
+| **Baseline: Direct** | `"open notepad"` | `open_app(notepad)` | 0.8114 | `False` | `[]` | ACT (≥ 0.80) |
+| **Baseline: Search** | `"search files for quarterly report"` | `search_files("quarterly report")` | 0.6989 | `False` | `[]` | CONFIRM (0.50–0.80) |
+| **Negation: App** | `"don't open notepad"` | `[]` (suppressed) | 0.5997 | `True` | `[]` | REFUSE (negation) |
+| **Negation: Reminder**| `"do not set a reminder for 5pm"` | `[]` (suppressed) | 0.0160 | `True` | `['set_reminder.when']`| REFUSE (< 0.50) |
+| **Vague Reference** | `"open that app we used yesterday"` | `[]` (none) | 0.0576 | `False` | `[]` | REFUSE (< 0.50) |
+| **Vague Reference** | `"find the file about that thing"` | `[]` (none) | 0.0820 | `False` | `[]` | REFUSE (< 0.50) |
+| **Two Actions: Apps** | `"open notepad and open calculator"`| `open_app(notepad)`, `open_app(calc)`| 0.8451 | `False` | `[]` | ACT (≥ 0.80) |
+| **Two Actions: Mixed**| `"set a reminder to call mom tomorrow at 10:00 and open paint"` | `set_reminder(2026-11-11T10:00:00)`, `open_app(paint)` | 0.5893 | `False` | `[]` | CONFIRM (0.50–0.80)|
+| **Off-Topic: QA** | `"what is the capital of France?"`| `[]` (none) | 0.9514 | `False` | `[]` | REFUSE (0 calls) |
+| **Off-Topic: Chat** | `"tell me a funny joke"` | `search_files("funny joke")` | 0.2104 | `False` | `[]` | REFUSE (< 0.50) |
+| **Missing Argument** | `"open"` | `[]` (none) | 0.0407 | `False` | `[]` | REFUSE (< 0.50) |
+| **Missing Argument** | `"set a reminder"` | `[]` (none) | 0.0137 | `False` | `[]` | REFUSE (< 0.50) |
+
+### Key Architectural Takeaways for PolicyGate
+1. **Negation Flag:** Needle sets `validation.negation = True` and suppresses calls for explicit negations. `PolicyGate` should check `validation.negation` as a hard constraint and refuse immediately if `True`.
+2. **Ungrounded Fields:** Missing/invented arguments populate `validation.ungrounded` (e.g. `['set_reminder.when']`). Any non-empty `ungrounded` list must prevent direct execution.
+3. **Threshold Behavior:**
+   - Ambiguous queries, vague queries, and missing parameters yield confidence < 0.10.
+   - Off-topic hallucination (`"tell me a funny joke"`) yielded confidence 0.2104, which is safely blocked by our `confirm_threshold = 0.50`.
+   - Clear commands yield confidence > 0.80.
+   - Dual-action complex commands yield confidence ~0.59–0.85.
+
+---
+
 ## Spike S3: `transcribe` Input Formats & Behavior on Silence
 
 Executed script: `scripts/test_spike_s3.py` against live weights `whistle.cact`.
@@ -160,6 +191,8 @@ Output on 1.0 second silence WAV (`b"\x00\x00" * 16000`):
 
 ## Spike S4: Hotkey Listener (`pynput`) on Windows
 
+- **Status:** Partially verified (parsing only; physical hook test in M2)
+
 Executed script: `scripts/test_spike_s4.py`.
 
 ### Findings
@@ -173,3 +206,4 @@ Executed script: `scripts/test_spike_s4.py`.
     - Pressing standard alphanumeric keys (`'a'`, `'b'`) results in **zero activations** and no stored text.
     - Full combination press activates callback once.
     - Releasing any key in the combination immediately deactivates.
+

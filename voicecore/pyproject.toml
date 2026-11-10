@@ -9,7 +9,7 @@ description = "Offline voice layer for Windows"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "cactus-compute[mic]",
+    "cactus-compute[mic]==4.1.0",
     "pynput",
 ]
 

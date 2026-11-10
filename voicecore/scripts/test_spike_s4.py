@@ -48,3 +48,4 @@ class PushToTalkListener:
 # Instantiate to verify construction
 ptt = PushToTalkListener()
 print("\nPushToTalkListener constructed successfully. Hotkey keys tracked count:", len(ptt.hotkey._keys))
+

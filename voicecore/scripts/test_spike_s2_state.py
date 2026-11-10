@@ -25,3 +25,4 @@ with cactus.Cactus(tools=[get_weather], stateless=True) as agent_sl:
     print("Stateless 1:", [c["name"] for c in out_sl1.get("function_calls", [])])
     out_sl2 = agent_sl.complete("and what about London?")
     print("Stateless 2:", out_sl2.get("function_calls", []))
+

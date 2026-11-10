@@ -6,7 +6,11 @@ This file records all architectural deviations, decisions, and resolutions again
 
 ## DECISION-001: Cactus Compute Engine Resolution (`cactus-compute` vs `cactus-needle`)
 
-- **Status:** Proposed & Verified via Spikes S1 & S2 (Pending Vignesh's approval at M0)
+- **Status:** APPROVED by Vignesh (2026-11-10) with conditions:
+  1. Update `docs/03_TECH_STACK.md`, `ANTIGRAVITY_PROMPT.md`, and `setup.ps1` to `cactus-compute`.
+  2. No `import cactus as needle` alias; use a single `voicecore.engine` adapter.
+  3. Pin `cactus-compute==4.1.0` and record SHA-256 of the wheels and both `.cact` files.
+  4. Relabel S4 as “partially verified (parsing only; physical hook test in M2)”.
 - **Date:** 2026-11-10
 - **Context:**
   - `docs/03_TECH_STACK.md` noted an open discrepancy:
@@ -17,12 +21,15 @@ This file records all architectural deviations, decisions, and resolutions again
     - Hugging Face returned **404 Entry Not Found**. Querying the HF API confirmed no `.whl` files exist in `Cactus-Compute/needle3`.
     - Inspection of `needle/agent/fetch.py` revealed a known upstream issue documented by Cactus: `unpublished_engine_wheels(): Pinned engine wheels that are missing from the Hub... leaves every fresh install with nothing to fetch.`
 - **Resolution:**
-  - The upstream maintainers consolidated the engine releases under the package `cactus-compute` (current version: `4.1.0`) and HF repository `Cactus-Compute/cactus` (`releases/4.1.0/python/cactus_runtime-4.1.0-py3-none-win_amd64.whl`).
-  - `cactus-compute` uses the exact same model weights (`needle3.cact` from `Cactus-Compute/needle3` and `whistle.cact` from `Cactus-Compute/whistle`).
-  - `cactus-compute` natively exports `Needle = Cactus`, `Whistle = Whistle`, `tool = tool`, and `transcribe = transcribe`.
-  - Both `CACTUS_TELEMETRY=0` and `NEEDLE_TELEMETRY=0` with `DO_NOT_TRACK=1` are supported and enforced.
-  - To preserve complete compatibility with the codebase and protocols, we provide a transparent bridge/alias (`import cactus as needle` or shim) so that all internal modules can reference either or both.
-- **Evidence:**
-  - Whistle transcription on 1s silence: returned `{'text': '', 'language': '', 'ttft_ms': 0.0, 'decode_tps': 0.0}` with zero errors.
-  - Needle 3 tool call (`get_weather`): `complete()` returned `function_calls` without executing the tool in 0.70s with confidence `0.957` and peak RAM 131 MB.
-  - All 6 verification checks passed.
+  - Pin dependency: `cactus-compute[mic]==4.1.0`.
+  - Upstream maintainers consolidated engine binaries under package `cactus-compute` (4.1.0) and HF repository `Cactus-Compute/cactus` (`releases/4.1.0/python/cactus_runtime-4.1.0-py3-none-win_amd64.whl`).
+  - Encapsulate all engine imports through a single module: `voicecore.engine` (`src/voicecore/engine.py`), exposing `tool`, `NeedleAgent` (`cactus.Cactus`), `Whistle`, and `transcribe`. No alias shimming.
+  - Telemetry strictly suppressed before engine import via `CACTUS_TELEMETRY=0`, `NEEDLE_TELEMETRY=0`, and `DO_NOT_TRACK=1`.
+
+### Pinned Artifact Hashes (SHA-256)
+| Artifact | Source / Location | SHA-256 | Size (Bytes) |
+|---|---|---|---|
+| `cactus_compute-4.1.0-py3-none-any.whl` | PyPI Release 4.1.0 | `fef19364d14e82fc1fbc850cfd9402fcbbb5a284ab68237b0ea3b9e062d8a9c3` | 132,367 |
+| `cactus_runtime-4.1.0-py3-none-win_amd64.whl` | Hugging Face `Cactus-Compute/cactus` | `300f66c30a67e907686edd35f05b45ce82b78ae9449214f6776df983dcb2178f` | 866,115 |
+| `needle3.cact` | Hugging Face `Cactus-Compute/needle3` (`d6c7d6a2...`) | `c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38` | 35,335,380 |
+| `whistle.cact` | Hugging Face `Cactus-Compute/whistle` (`74111868...`) | `b6e02f048568ac5d01a2042556c658061e699acbc0aa2a1439f52f3d461dffeb` | 16,919,407 |
