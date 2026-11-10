@@ -37,6 +37,8 @@ from voicecore.nlu.needle_router import NeedleRouter
 from voicecore.policy.gate import PolicyGate
 from voicecore.runtime.assistant import Assistant, State
 from voicecore.tools.builtin.open_app import open_app
+from voicecore.tools.builtin.search_files import search_files
+from voicecore.tools.builtin.set_reminder import get_default_manager, set_reminder
 from voicecore.tools.registry import ToolRegistry
 
 logger = logging.getLogger("voicecore")
@@ -105,7 +107,7 @@ def main() -> int:
 
     config = VoiceCoreConfig.from_toml(config_path) if config_path.is_file() else VoiceCoreConfig()
 
-    # 2. Tool Registry
+    # 2. Tool Registry (M3: open_app, search_files, set_reminder)
     registry = ToolRegistry()
 
     if args.dry_run:
@@ -116,6 +118,9 @@ def main() -> int:
         registry.register(open_app_dry, tier="T1", name="open_app")
     else:
         registry.register(open_app, tier="T1", name="open_app")
+
+    registry.register(search_files, tier="T0", name="search_files")
+    registry.register(set_reminder, tier="T1", name="set_reminder")
 
     # 3. Policy Gate & EventBus
     gate = PolicyGate(config=config.policy, registry=registry)
@@ -136,6 +141,14 @@ def main() -> int:
         config=config,
         event_bus=event_bus,
     )
+    # Startup warm-up inference (pre-initializes weights and buffers)
+    assistant.warmup()
+
+    # Startup reload of pending reminders
+    reminder_mgr = get_default_manager()
+    reloaded = reminder_mgr.reload_pending()
+    if reloaded["scheduled"] > 0 or reloaded["missed"] > 0:
+        print(f"[STARTUP] Reminders: {reloaded['scheduled']} pending scheduled, {reloaded['missed']} missed marked.")
 
     def cli_confirmer(call) -> bool:
         tier = registry.get_tier(call.name)

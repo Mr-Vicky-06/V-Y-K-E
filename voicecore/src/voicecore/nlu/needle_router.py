@@ -80,6 +80,13 @@ class NeedleRouter(Router):
             ungrounded=ungrounded,
         )
 
+    def warmup(self) -> None:
+        """Run warm-up inference to prime Needle weights and memory."""
+        try:
+            self.route("warmup")
+        except Exception:
+            pass
+
     def close(self) -> None:
         """Release agent resources."""
         if hasattr(self, "_agent") and self._agent is not None:

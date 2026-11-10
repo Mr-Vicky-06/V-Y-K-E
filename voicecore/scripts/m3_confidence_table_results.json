@@ -1,0 +1,342 @@
+[
+  {
+    "category": "Positive baseline",
+    "utterance": "open notepad",
+    "expectation": "open_app",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "notepad"
+        }
+      }
+    ],
+    "confidence": 0.6705,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "CONFIRM",
+    "nlu_ms": 3258.8633000850677
+  },
+  {
+    "category": "Positive baseline",
+    "utterance": "launch calculator",
+    "expectation": "open_app",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "calculator"
+        }
+      }
+    ],
+    "confidence": 0.4156,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 1747.9061000049114
+  },
+  {
+    "category": "Positive baseline",
+    "utterance": "search files for quarterly report",
+    "expectation": "search_files",
+    "calls": [
+      {
+        "name": "search_files",
+        "arguments": {
+          "query": "quarterly report"
+        }
+      }
+    ],
+    "confidence": 0.3411,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 3705.3333000512794
+  },
+  {
+    "category": "Positive baseline",
+    "utterance": "find files named budget",
+    "expectation": "search_files",
+    "calls": [
+      {
+        "name": "search_files",
+        "arguments": {
+          "query": "budget"
+        }
+      }
+    ],
+    "confidence": 0.3572,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 2242.962099961005
+  },
+  {
+    "category": "Positive baseline",
+    "utterance": "set a reminder to call mom tomorrow at 10:00",
+    "expectation": "set_reminder",
+    "calls": [
+      {
+        "name": "set_reminder",
+        "arguments": {
+          "message": "Call mom",
+          "when": "tomorrow at 10"
+        }
+      }
+    ],
+    "confidence": 0.5383,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "CONFIRM",
+    "nlu_ms": 3441.260199993849
+  },
+  {
+    "category": "Positive baseline",
+    "utterance": "remind me to buy milk tomorrow at 18:00",
+    "expectation": "set_reminder",
+    "calls": [
+      {
+        "name": "set_reminder",
+        "arguments": {
+          "message": "Buy milk",
+          "when": "tomorrow at 18:00"
+        }
+      }
+    ],
+    "confidence": 0.4095,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 2858.9805000228807
+  },
+  {
+    "category": "Negation",
+    "utterance": "don't open notepad",
+    "expectation": "REFUSE",
+    "calls": [],
+    "confidence": 0.3979,
+    "negation": true,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 4503.535500029102
+  },
+  {
+    "category": "Negation",
+    "utterance": "do not set a reminder for 5pm",
+    "expectation": "REFUSE",
+    "calls": [],
+    "confidence": 0.0395,
+    "negation": true,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2370.2793000265956
+  },
+  {
+    "category": "Vague",
+    "utterance": "open that app we used yesterday",
+    "expectation": "REFUSE or CONFIRM (never unvalidated ACT)",
+    "calls": [],
+    "confidence": 0.0275,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2085.977099952288
+  },
+  {
+    "category": "Vague",
+    "utterance": "find the file about that thing",
+    "expectation": "REFUSE or CONFIRM",
+    "calls": [],
+    "confidence": 0.0381,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2242.708000005223
+  },
+  {
+    "category": "Multi-action",
+    "utterance": "open notepad and open calculator",
+    "expectation": "open_app x2",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "notepad"
+        }
+      },
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "calculator"
+        }
+      }
+    ],
+    "confidence": 0.6217,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "CONFIRM",
+    "nlu_ms": 6791.678600013256
+  },
+  {
+    "category": "Off-topic",
+    "utterance": "what is the capital of France?",
+    "expectation": "REFUSE / no calls",
+    "calls": [],
+    "confidence": 0.8628,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 1976.6814999748021
+  },
+  {
+    "category": "Off-topic",
+    "utterance": "tell me a funny joke",
+    "expectation": "REFUSE / no calls",
+    "calls": [],
+    "confidence": 0.0649,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 3593.38860004209
+  },
+  {
+    "category": "Missing arg",
+    "utterance": "open",
+    "expectation": "REFUSE / no calls",
+    "calls": [],
+    "confidence": 0.0434,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2499.188099987805
+  },
+  {
+    "category": "Missing arg",
+    "utterance": "set a reminder",
+    "expectation": "REFUSE / no calls",
+    "calls": [],
+    "confidence": 0.0119,
+    "negation": false,
+    "ungrounded": [
+      "set_reminder.when"
+    ],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2241.032899939455
+  },
+  {
+    "category": "Missing arg",
+    "utterance": "search files",
+    "expectation": "REFUSE / no calls",
+    "calls": [],
+    "confidence": 0.0243,
+    "negation": false,
+    "ungrounded": [
+      "search_files.query"
+    ],
+    "decision": "NO_CALLS",
+    "nlu_ms": 4470.714200055227
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "open the quarterly report",
+    "expectation": "NEVER ACT on wrong tool (CONFIRM or REFUSE)",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "quarterly report"
+        }
+      }
+    ],
+    "confidence": 0.4897,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 1765.886400011368
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "open budget",
+    "expectation": "NEVER ACT on wrong tool (CONFIRM or REFUSE)",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "budget"
+        }
+      }
+    ],
+    "confidence": 0.3569,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 1854.1944000171497
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "open my project proposal",
+    "expectation": "NEVER ACT on wrong tool (CONFIRM or REFUSE)",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "project proposal"
+        }
+      }
+    ],
+    "confidence": 0.4401,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 3704.4812000822276
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "find notepad",
+    "expectation": "NEVER ACT on wrong tool (CONFIRM or REFUSE)",
+    "calls": [
+      {
+        "name": "open_app",
+        "arguments": {
+          "app_name": "notepad"
+        }
+      }
+    ],
+    "confidence": 0.4142,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 1909.7873999271542
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "search for calculator",
+    "expectation": "NEVER ACT on wrong tool (CONFIRM or REFUSE)",
+    "calls": [
+      {
+        "name": "search_files",
+        "arguments": {
+          "query": "calculator"
+        }
+      }
+    ],
+    "confidence": 0.3156,
+    "negation": false,
+    "ungrounded": [],
+    "decision": "REFUSE",
+    "nlu_ms": 2122.60750005953
+  },
+  {
+    "category": "Near-miss",
+    "utterance": "remind me about notepad",
+    "expectation": "set_reminder or REFUSE/CONFIRM",
+    "calls": [],
+    "confidence": 0.0234,
+    "negation": false,
+    "ungrounded": [
+      "set_reminder.when"
+    ],
+    "decision": "NO_CALLS",
+    "nlu_ms": 2572.891899966635
+  }
+]

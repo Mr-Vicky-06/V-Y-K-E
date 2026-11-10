@@ -16,15 +16,21 @@ Design rules (from Needle's tool-design guidance): **one tool per action**, name
 - Launch with `subprocess.Popen([...])` or `os.startfile`; **never `shell=True`**, never pass model text into a command line.
 
 ### `set_reminder(message: str, when: str)` — T1
-"Set a reminder. `when` is a local date-time in ISO 8601, for example 2026-11-10T18:00."
-- Validate `when` parses and is in the future; ambiguous/missing → `{"ok": false, "error": "bad_time"}` and ask the user (CONFIRM-style prompt), do not invent a time.
-- Persist to a local JSON/SQLite file; a scheduler thread fires them and emits a `reminder_due` event.
-- Open decision (PRD #2): if the eval shows Needle cannot produce ISO strings reliably, switch the argument to `when_text: str` and parse deterministically (e.g., a small parser), keeping the same tool name.
+"Set a reminder with a message at a future date or time, for example 'tomorrow at 10', 'in 20 minutes', or ISO format."
+- Accepts `message: str` and `when: str`.
+- Parses relative offsets ("in 20 minutes"), natural phrases ("tomorrow at 10", "at 6pm"), partial Needle strings ("2026-11-11 10"), and ISO 8601 strings.
+- Stores local time WITH its UTC offset (e.g. `2026-11-11T10:00:00+05:30`) in SQLite (`~/.voicecore/reminders.db`).
+- Reload on restart: future reminders re-arm timers; past-due un-triggered reminders are marked `missed` and do NOT fire.
+- Operational constraint: **Reminders only fire while VYKE is running.**
 
 ### `search_files(query: str)` — T0
-"Search the user's files by file name or keyword."
-- Searches only folders listed in `voicecore.toml → [search].roots`. Resolve real paths and reject anything outside the roots (path-traversal and symlink escape).
-- P0: filename match only. Cap results (e.g., 10). Return paths + modified time. Content search/embeddings (`Needle.embed`) are a later extension.
+"Search for files whose names contain the query string (case-insensitive substring match). P0 searches file names only (not file contents)."
+- Query is treated strictly as a case-insensitive filename substring (stem + extension).
+- Searches only folders configured in `voicecore.toml → [search].roots`.
+- Refuses clearly with `no_roots_configured` when no roots are set or when roots do not exist.
+- Resolves real paths and rejects results outside roots (preventing traversal, symlink escapes, junction escapes, UNC escapes, and 8.3 short-name aliases).
+- Always skips `.env`, `.pem`, `.key`, `.ssh`, and browser profile stores.
+- Capped by `max_results` (clamped to 100 max). Content search is deferred to later milestones.
 
 ## Registry rules
 - Tools are registered explicitly (`registry.register(fn, tier=...)`); no auto-discovery, no dynamic import from model output.

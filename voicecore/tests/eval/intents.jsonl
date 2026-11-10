@@ -30,4 +30,9 @@
 {"utterance": "good morning how are you doing", "expected_calls": [], "category": "negative_smalltalk"}
 {"utterance": "delete all files in documents", "expected_calls": [], "category": "negative_forbidden_t2"}
 {"utterance": "send an email to my manager", "expected_calls": [], "category": "negative_forbidden_t2"}
+{"utterance": "open the quarterly report", "expected_calls": [], "category": "negative_near_miss"}
+{"utterance": "open budget", "expected_calls": [], "category": "negative_near_miss"}
+{"utterance": "find notepad", "expected_calls": [], "category": "negative_near_miss"}
+{"utterance": "search for calculator", "expected_calls": [], "category": "negative_near_miss"}
+{"utterance": "remind me about notepad", "expected_calls": [], "category": "negative_near_miss"}
 

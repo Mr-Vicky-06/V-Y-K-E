@@ -70,6 +70,14 @@ class WhistleASR(ASR):
             asr_ms=asr_ms,
         )
 
+    def warmup(self) -> None:
+        """Run a warm-up inference with silence buffer to pre-initialize engine."""
+        try:
+            silence = np.zeros(1600, dtype=np.float32)
+            self.transcribe(silence)
+        except Exception:
+            pass
+
     def _save_debug_audio(self, samples: np.ndarray) -> None:
         """Save captured numpy samples to disk for debugging only when explicitly enabled."""
         try:

@@ -65,6 +65,13 @@ class Assistant:
         self._active_run_id: Optional[str] = None
         self._press_time: float = 0.0
 
+    def warmup(self) -> None:
+        """Warm up ASR and Router engines at startup."""
+        if hasattr(self.router, "warmup"):
+            self.router.warmup()
+        if self.asr and hasattr(self.asr, "warmup"):
+            self.asr.warmup()
+
     @property
     def state(self) -> State:
         with self._state_lock:
