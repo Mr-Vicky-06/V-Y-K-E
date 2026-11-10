@@ -45,6 +45,10 @@ class ToolRegistry:
             raise ValueError(f"Invalid tier '{tier}'. Must be one of {VALID_TIERS}")
 
         tool_name = name or fn.__name__
+        if is_host and tool_name in self._tools and not self._tools[tool_name].is_host:
+            raise ValueError(
+                f"Cannot overwrite built-in tool '{tool_name}'. Host tools cannot use built-in names."
+            )
         if name and hasattr(fn, "__name__") and fn.__name__ != name:
             try:
                 fn.__name__ = name

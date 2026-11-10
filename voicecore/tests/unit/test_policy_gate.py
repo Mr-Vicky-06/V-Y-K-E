@@ -133,7 +133,7 @@ def test_open_app_precheck_in_gate():
     dec_bad = gate.decide(call_bad, confidence=0.99)
     assert dec_bad.decision == Decision.REFUSE
     assert "Pre-check failed" in dec_bad.reason
-    assert "not in the authorized allowlist" in dec_bad.reason
+    assert "is not an allowed app" in dec_bad.reason
 
 
 def test_search_files_precheck_in_gate():

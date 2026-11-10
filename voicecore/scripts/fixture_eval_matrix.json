@@ -1,0 +1,2848 @@
+{
+  "fixture_dir": "D:\\VYKE\\voicecore\\tests\\test_data\\fixture_search_root",
+  "triggers_active": true,
+  "routed_cases": [
+    {
+      "idx": 0,
+      "utterance": "open notepad",
+      "transcript": "Open notepad.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.7612,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 1,
+      "utterance": "launch calculator",
+      "transcript": "Launch calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Calculator"
+          }
+        }
+      ],
+      "confidence": 0.3432,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 2,
+      "utterance": "open calc",
+      "transcript": "Open calc.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        }
+      ],
+      "confidence": 0.4293,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 3,
+      "utterance": "start paint",
+      "transcript": "Start paint.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "confidence": 0.1179,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 4,
+      "utterance": "open file explorer",
+      "transcript": "Open file explorer.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "file explorer"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Explorer"
+          }
+        }
+      ],
+      "confidence": 0.3744,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 5,
+      "utterance": "please open the notepad application",
+      "transcript": "Please open the notepad application.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.5934,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 6,
+      "utterance": "bring up calculator",
+      "transcript": "Bring up calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.5149,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 7,
+      "utterance": "open mspaint",
+      "transcript": "Open mspaint.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "mspaint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Mspaint"
+          }
+        }
+      ],
+      "confidence": 0.6034,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 8,
+      "utterance": "launch paint",
+      "transcript": "Launch paint.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "confidence": 0.0909,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 9,
+      "utterance": "run calculator",
+      "transcript": "Run calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.4126,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 10,
+      "utterance": "start explorer",
+      "transcript": "Start explorer.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "explorer"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Explorer"
+          }
+        }
+      ],
+      "confidence": 0.2262,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 11,
+      "utterance": "open node pad",
+      "transcript": "Open node pad.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "node pad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "node pad"
+          }
+        }
+      ],
+      "confidence": 0.2092,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 12,
+      "utterance": "please open calculator",
+      "transcript": "Please open calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.8211,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 13,
+      "utterance": "can you launch notepad",
+      "transcript": "Can you launch notepad.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.5428,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 14,
+      "utterance": "open the paint application",
+      "transcript": "Open the paint application.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint application"
+          }
+        }
+      ],
+      "confidence": 0.3535,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "open_app"
+    },
+    {
+      "idx": 15,
+      "utterance": "search files for quarterly report",
+      "transcript": "Search files for quarterly report.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "quarterly report"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "quarterly report"
+          }
+        }
+      ],
+      "confidence": 0.3489,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 16,
+      "utterance": "find files named budget",
+      "transcript": "Find files named budget.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "budget"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "budget"
+          }
+        }
+      ],
+      "confidence": 0.3945,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 17,
+      "utterance": "search local files for project proposal",
+      "transcript": "Search local files for project proposal.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "project proposal"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "project proposal"
+          }
+        }
+      ],
+      "confidence": 0.25,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 18,
+      "utterance": "find my resume file",
+      "transcript": "Find my resume file.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "resume"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "resume file"
+          }
+        }
+      ],
+      "confidence": 0.1003,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 19,
+      "utterance": "search files for invoice",
+      "transcript": "Search files for invoice.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "invoice"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "invoice"
+          }
+        }
+      ],
+      "confidence": 0.2639,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 20,
+      "utterance": "find files called report",
+      "transcript": "Find files called report.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "report"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "report"
+          }
+        }
+      ],
+      "confidence": 0.258,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 21,
+      "utterance": "search for meeting notes file",
+      "transcript": "Search for meeting notes file.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "meeting notes"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "meeting notes file"
+          }
+        }
+      ],
+      "confidence": 0.1963,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 22,
+      "utterance": "look for files named presentation",
+      "transcript": "Look for files named presentation.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "presentation"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "presentation"
+          }
+        }
+      ],
+      "confidence": 0.3895,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 23,
+      "utterance": "search files containing proposal",
+      "transcript": "Search files containing proposal.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "proposal"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "proposal"
+          }
+        }
+      ],
+      "confidence": 0.255,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 24,
+      "utterance": "find spreadsheet named taxes",
+      "transcript": "Find spreadsheet named taxes.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "taxes"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "taxes"
+          }
+        }
+      ],
+      "confidence": 0.4122,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 25,
+      "utterance": "locate file named checklist",
+      "transcript": "Locate file named checklist.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "checklist"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "checklist"
+          }
+        }
+      ],
+      "confidence": 0.3464,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 26,
+      "utterance": "search documents for summary",
+      "transcript": "Search documents for summary.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "summary"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "summary"
+          }
+        }
+      ],
+      "confidence": 0.1329,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 27,
+      "utterance": "find pdf named contract",
+      "transcript": "Find pdf named contract.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "contract"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "contract"
+          }
+        }
+      ],
+      "confidence": 0.2467,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 28,
+      "utterance": "search my files for schedule",
+      "transcript": "Search my files for schedule.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "schedule"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "schedule"
+          }
+        }
+      ],
+      "confidence": 0.2249,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 29,
+      "utterance": "find file named design",
+      "transcript": "Find file named design.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "design"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "design"
+          }
+        }
+      ],
+      "confidence": 0.3866,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "search_files"
+    },
+    {
+      "idx": 30,
+      "utterance": "set a reminder to call mom tomorrow at 10:00",
+      "transcript": "Set a reminder to call mom tomorrow at 10:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "call mom",
+            "when": "tomorrow at 10:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Call mom",
+            "when": "tomorrow at 10:00"
+          }
+        }
+      ],
+      "confidence": 0.6111,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 31,
+      "utterance": "remind me to buy milk tomorrow at 18:00",
+      "transcript": "Remind me to buy milk tomorrow at 18:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "buy milk",
+            "when": "tomorrow at 18:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Buy milk",
+            "when": "tomorrow at 18:00"
+          }
+        }
+      ],
+      "confidence": 0.591,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 32,
+      "utterance": "set a reminder for team meeting tomorrow at 09:00",
+      "transcript": "Set a reminder for team meeting tomorrow at 09:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "team meeting",
+            "when": "tomorrow at 09:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Team meeting",
+            "when": "tomorrow at 09:00"
+          }
+        }
+      ],
+      "confidence": 0.5857,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 33,
+      "utterance": "remind me to take medication in 20 minutes",
+      "transcript": "Remind me to take medication in 20 minutes.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "take medication",
+            "when": "in 20 minutes"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Take medication",
+            "when": "in 20 minutes"
+          }
+        }
+      ],
+      "confidence": 0.4471,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 34,
+      "utterance": "set a reminder for dentist appointment tomorrow at 14:00",
+      "transcript": "Set a reminder for dentist appointment tomorrow at 14:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "dentist appointment",
+            "when": "tomorrow at 14:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Dentist appointment",
+            "when": "tomorrow at 14:00"
+          }
+        }
+      ],
+      "confidence": 0.4944,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 35,
+      "utterance": "remind me to submit timesheet tomorrow at 17:00",
+      "transcript": "Remind me to submit timesheet tomorrow at 17:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "submit timesheet",
+            "when": "tomorrow at 17:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Submit timesheet",
+            "when": "tomorrow at 17:00"
+          }
+        }
+      ],
+      "confidence": 0.5159,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 36,
+      "utterance": "set a reminder to check oven in 30 minutes",
+      "transcript": "Set a reminder to check oven in 30 minutes.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "check oven",
+            "when": "in 30 minutes"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Check oven",
+            "when": "in 30 minutes"
+          }
+        }
+      ],
+      "confidence": 0.3561,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 37,
+      "utterance": "remind me to call John at 15:00",
+      "transcript": "Remind me to call John at 15:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "call John",
+            "when": "at 15:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Call John",
+            "when": "15:00"
+          }
+        }
+      ],
+      "confidence": 0.4698,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 38,
+      "utterance": "set a reminder for standup tomorrow at 10:30",
+      "transcript": "Set a reminder for standup tomorrow at 10:30.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "standup",
+            "when": "tomorrow at 10:30"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Standup",
+            "when": "tomorrow at 10:30"
+          }
+        }
+      ],
+      "confidence": 0.3898,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 39,
+      "utterance": "remind me to pay bills tomorrow at 12:00",
+      "transcript": "Remind me to pay bills tomorrow at 12:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "pay bills",
+            "when": "tomorrow at 12:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Pay bills",
+            "when": "tomorrow at 12:00"
+          }
+        }
+      ],
+      "confidence": 0.5699,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 40,
+      "utterance": "set a reminder to stretch in 1 hour",
+      "transcript": "Set a reminder to stretch in 1 hour.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "stretch",
+            "when": "in 1 hour"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Stretch",
+            "when": "1 hour"
+          }
+        }
+      ],
+      "confidence": 0.5899,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 41,
+      "utterance": "remind me to pick up groceries at 6pm",
+      "transcript": "Remind me to pick up groceries at 6pm.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "pick up groceries",
+            "when": "at 6pm"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Pick up groceries",
+            "when": "6pm"
+          }
+        }
+      ],
+      "confidence": 0.3467,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 42,
+      "utterance": "set a reminder for project review tomorrow at 11:00",
+      "transcript": "Set a reminder for project review tomorrow at 11:00.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "project review",
+            "when": "tomorrow at 11:00"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Project review",
+            "when": "tomorrow at 11:00"
+          }
+        }
+      ],
+      "confidence": 0.5334,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 43,
+      "utterance": "remind me to drink water in 15 minutes",
+      "transcript": "Remind me to drink water in 15 minutes.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "drink water",
+            "when": "in 15 minutes"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Drink water",
+            "when": "in 15 minutes"
+          }
+        }
+      ],
+      "confidence": 0.4173,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 44,
+      "utterance": "set a reminder to send email tomorrow at 08:30",
+      "transcript": "Set a reminder to send email tomorrow at 08:30.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "send email",
+            "when": "tomorrow at 08:30"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Send email",
+            "when": "tomorrow at 08:30"
+          }
+        }
+      ],
+      "confidence": 0.4375,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "set_reminder"
+    },
+    {
+      "idx": 45,
+      "utterance": "open notepad and open calculator",
+      "transcript": "Open notepad and open calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.6107,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 46,
+      "utterance": "open paint and open notepad",
+      "transcript": "Open paint and open notepad.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.5284,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 47,
+      "utterance": "open calc and launch paint",
+      "transcript": "Open calc and launch paint.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "launch paint"
+          }
+        }
+      ],
+      "confidence": 0.3222,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 48,
+      "utterance": "set a reminder to call mom tomorrow at 10:00 and open notepad",
+      "transcript": "Set a reminder to call mom tomorrow at 10:00 and open notepad.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "call mom",
+            "when": "tomorrow at 10:00"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Call mom",
+            "when": "tomorrow at 10"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.5144,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 49,
+      "utterance": "open calculator and search files for budget",
+      "transcript": "Open calculator and search files for budget.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        },
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "budget"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        },
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "budget"
+          }
+        }
+      ],
+      "confidence": 0.4285,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 50,
+      "utterance": "open file explorer and open notepad",
+      "transcript": "Open file explorer and open notepad.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "file explorer"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Explorer"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Notepad"
+          }
+        }
+      ],
+      "confidence": 0.6193,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 51,
+      "utterance": "set a reminder to buy milk tomorrow at 18:00 and open calculator",
+      "transcript": "Set a reminder to buy milk tomorrow at 18:00 and open calculator.",
+      "expected_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "buy milk",
+            "when": "tomorrow at 18:00"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Buy milk",
+            "when": "tomorrow at 18:00"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.4767,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 52,
+      "utterance": "launch paint and open calculator",
+      "transcript": "Launch paint and open calculator.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Launch paint"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.3198,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 53,
+      "utterance": "search files for quarterly report and open notepad",
+      "transcript": "Search files for quarterly report and open notepad.",
+      "expected_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "quarterly report"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "quarterly report"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.4102,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 54,
+      "utterance": "open notepad and open paint",
+      "transcript": "Open notepad and open paint.",
+      "expected_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "confidence": 0.5731,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": false,
+      "category": "multi_action"
+    },
+    {
+      "idx": 55,
+      "utterance": "don't open notepad",
+      "transcript": "Don't open notepad.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.2237,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 56,
+      "utterance": "do not set a reminder for 5pm",
+      "transcript": "Do not set a reminder for 5pm.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.031,
+      "negation": true,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 57,
+      "utterance": "never open calculator",
+      "transcript": "Never open calculator.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.2866,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 58,
+      "utterance": "don't search files for secret",
+      "transcript": "Don't search files for secret.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.2076,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 59,
+      "utterance": "do not open paint",
+      "transcript": "Do not open paint.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.2148,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 60,
+      "utterance": "please don't launch calculator",
+      "transcript": "Please don't launch calculator.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.4282,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 61,
+      "utterance": "nevermind do not set a reminder",
+      "transcript": "Nevermind do not set a reminder.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.0048,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 62,
+      "utterance": "cancel that don't open notepad",
+      "transcript": "Cancel that don't open notepad.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.157,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 63,
+      "utterance": "do not find files named budget",
+      "transcript": "Do not find files named budget.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.3418,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 64,
+      "utterance": "don't set any reminders",
+      "transcript": "Don't set any reminders.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.0079,
+      "negation": true,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_negation"
+    },
+    {
+      "idx": 65,
+      "utterance": "open that app we used yesterday",
+      "transcript": "Open that app we used yesterday.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "that app"
+          }
+        }
+      ],
+      "confidence": 0.035,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_vague"
+    },
+    {
+      "idx": 66,
+      "utterance": "find the file about that thing",
+      "transcript": "Find the file about that thing.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "that thing"
+          }
+        }
+      ],
+      "confidence": 0.0351,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_vague"
+    },
+    {
+      "idx": 67,
+      "utterance": "remind me about that stuff",
+      "transcript": "Remind me about that stuff.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "That stuff",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.0798,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_vague"
+    },
+    {
+      "idx": 68,
+      "utterance": "open the recent thing",
+      "transcript": "Open the recent thing.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "recent thing"
+          }
+        }
+      ],
+      "confidence": 0.0423,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_vague"
+    },
+    {
+      "idx": 69,
+      "utterance": "search files for whatever",
+      "transcript": "Search files for whatever.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "whatever"
+          }
+        }
+      ],
+      "confidence": 0.0704,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_vague"
+    },
+    {
+      "idx": 70,
+      "utterance": "open",
+      "transcript": "Open.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Open"
+          }
+        }
+      ],
+      "confidence": 0.3829,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_missing_arg"
+    },
+    {
+      "idx": 71,
+      "utterance": "launch",
+      "transcript": "Launch.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Launch"
+          }
+        }
+      ],
+      "confidence": 0.1252,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_missing_arg"
+    },
+    {
+      "idx": 72,
+      "utterance": "search files",
+      "transcript": "Search files.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "Search files"
+          }
+        }
+      ],
+      "confidence": 0.0667,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_missing_arg"
+    },
+    {
+      "idx": 73,
+      "utterance": "find file",
+      "transcript": "Find file.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "Find file"
+          }
+        }
+      ],
+      "confidence": 0.0718,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_missing_arg"
+    },
+    {
+      "idx": 74,
+      "utterance": "set a reminder",
+      "transcript": "Set a reminder.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Reminder",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.0348,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_missing_arg"
+    },
+    {
+      "idx": 75,
+      "utterance": "what is the capital of France?",
+      "transcript": "What is the capital of France?",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.8789,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_off_topic"
+    },
+    {
+      "idx": 76,
+      "utterance": "tell me a funny joke",
+      "transcript": "Tell me a funny joke.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.0663,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_off_topic"
+    },
+    {
+      "idx": 77,
+      "utterance": "who won the world cup in 2022?",
+      "transcript": "Who won the world cup in 2022?",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.5349,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_off_topic"
+    },
+    {
+      "idx": 78,
+      "utterance": "play some jazz music on spotify",
+      "transcript": "Play some jazz music on spotify.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.8859,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_unsupported"
+    },
+    {
+      "idx": 79,
+      "utterance": "how is the weather outside today?",
+      "transcript": "How is the weather outside today?",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.6878,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_unsupported"
+    },
+    {
+      "idx": 80,
+      "utterance": "good morning how are you doing",
+      "transcript": "Good morning how are you doing.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.6653,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_smalltalk"
+    },
+    {
+      "idx": 81,
+      "utterance": "delete all files in documents",
+      "transcript": "Delete all files in documents.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "documents"
+          }
+        }
+      ],
+      "confidence": 0.0403,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_forbidden_t2"
+    },
+    {
+      "idx": 82,
+      "utterance": "send an email to my manager",
+      "transcript": "Send an email to my manager.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.8352,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_forbidden_t2"
+    },
+    {
+      "idx": 83,
+      "utterance": "shutdown the computer immediately",
+      "transcript": "Shutdown the computer immediately.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.0,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_forbidden_t2"
+    },
+    {
+      "idx": 84,
+      "utterance": "format drive c",
+      "transcript": "Format drive c.",
+      "expected_calls": [],
+      "actual_calls": [],
+      "confidence": 0.0334,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": true,
+      "is_wrong_tool": false,
+      "is_negative": true,
+      "category": "negative_forbidden_t2"
+    },
+    {
+      "idx": 85,
+      "utterance": "open the quarterly report",
+      "transcript": "Open the quarterly report.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "quarterly report"
+          }
+        }
+      ],
+      "confidence": 0.5017,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 86,
+      "utterance": "open budget",
+      "transcript": "Open budget.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "budget"
+          }
+        }
+      ],
+      "confidence": 0.4371,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 87,
+      "utterance": "open my project proposal",
+      "transcript": "Open my project proposal.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "project proposal"
+          }
+        }
+      ],
+      "confidence": 0.3691,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 88,
+      "utterance": "open invoice",
+      "transcript": "Open invoice.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "invoice"
+          }
+        }
+      ],
+      "confidence": 0.4539,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 89,
+      "utterance": "open presentation",
+      "transcript": "Open presentation.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "presentation"
+          }
+        }
+      ],
+      "confidence": 0.3712,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 90,
+      "utterance": "open notes",
+      "transcript": "Open notes.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notes"
+          }
+        }
+      ],
+      "confidence": 0.5069,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 91,
+      "utterance": "open my resume",
+      "transcript": "Open my resume.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "resume"
+          }
+        }
+      ],
+      "confidence": 0.2638,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 92,
+      "utterance": "open document",
+      "transcript": "Open document.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "document"
+          }
+        }
+      ],
+      "confidence": 0.14,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 93,
+      "utterance": "open report",
+      "transcript": "Open report.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "report"
+          }
+        }
+      ],
+      "confidence": 0.3604,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 94,
+      "utterance": "open sheet",
+      "transcript": "Open sheet.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "sheet."
+          }
+        }
+      ],
+      "confidence": 0.4447,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 95,
+      "utterance": "open summary",
+      "transcript": "Open summary.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "summary"
+          }
+        }
+      ],
+      "confidence": 0.3819,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 96,
+      "utterance": "open draft",
+      "transcript": "Open draft.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "draft"
+          }
+        }
+      ],
+      "confidence": 0.2558,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 97,
+      "utterance": "open paper",
+      "transcript": "Open paper.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paper"
+          }
+        }
+      ],
+      "confidence": 0.4615,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 98,
+      "utterance": "open text file",
+      "transcript": "Open text file.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "text file"
+          }
+        }
+      ],
+      "confidence": 0.2377,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 99,
+      "utterance": "open log",
+      "transcript": "Open log.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "log"
+          }
+        }
+      ],
+      "confidence": 0.1513,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 100,
+      "utterance": "find notepad",
+      "transcript": "Find notepad.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.6453,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 101,
+      "utterance": "search for calculator",
+      "transcript": "Search for calculator.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "calculator"
+          }
+        }
+      ],
+      "confidence": 0.2715,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 102,
+      "utterance": "locate paint",
+      "transcript": "Locate paint.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "paint"
+          }
+        }
+      ],
+      "confidence": 0.2128,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 103,
+      "utterance": "search files for notepad",
+      "transcript": "Search files for notepad.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.2086,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 104,
+      "utterance": "find calc",
+      "transcript": "Find calc.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "calc"
+          }
+        }
+      ],
+      "confidence": 0.2576,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 105,
+      "utterance": "search for file explorer",
+      "transcript": "Search for file explorer.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "explorer"
+          }
+        }
+      ],
+      "confidence": 0.4435,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 106,
+      "utterance": "look for notepad on my computer",
+      "transcript": "Look for notepad on my computer.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.4639,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 107,
+      "utterance": "search for mspaint",
+      "transcript": "Search for mspaint.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "mspaint"
+          }
+        }
+      ],
+      "confidence": 0.3239,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 108,
+      "utterance": "find the notepad tool",
+      "transcript": "Find the notepad tool.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "notepad"
+          }
+        }
+      ],
+      "confidence": 0.4363,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 109,
+      "utterance": "search for the calculator program",
+      "transcript": "Search for the calculator program.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "calculator program"
+          }
+        }
+      ],
+      "confidence": 0.2243,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 110,
+      "utterance": "remind me about notepad",
+      "transcript": "Remind me about notepad.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Notepad",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.175,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 111,
+      "utterance": "remind me of the calculator",
+      "transcript": "Remind me of the calculator.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Calculator",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.1573,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 112,
+      "utterance": "remind me to find budget",
+      "transcript": "Remind me to find budget.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Find budget",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.2408,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 113,
+      "utterance": "set a reminder about quarterly report",
+      "transcript": "Set a reminder about quarterly report.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Quarterly report",
+            "when": "tomorrow at 10"
+          }
+        }
+      ],
+      "confidence": 0.2308,
+      "negation": false,
+      "ungrounded": [
+        "set_reminder.when"
+      ],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    },
+    {
+      "idx": 114,
+      "utterance": "open reminder",
+      "transcript": "Open reminder.",
+      "expected_calls": [],
+      "actual_calls": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Reminder",
+            "when": "reminder"
+          }
+        }
+      ],
+      "confidence": 0.0507,
+      "negation": false,
+      "ungrounded": [],
+      "is_correct": false,
+      "is_wrong_tool": true,
+      "is_negative": true,
+      "category": "negative_near_miss"
+    }
+  ]
+}

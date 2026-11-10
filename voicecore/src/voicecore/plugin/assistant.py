@@ -202,6 +202,13 @@ class VoiceAssistant:
         resolved_precheck = precheck if precheck is not None else getattr(fn, "_voicecore_precheck", None)
         resolved_triggers = triggers if triggers is not None else getattr(fn, "_voicecore_triggers", None)
         resolved_name = name if name is not None else getattr(fn, "_voicecore_name", None)
+        target_name = resolved_name or fn.__name__
+        existing = self.registry.get(target_name)
+        if existing and not existing.is_host:
+            raise ValueError(
+                f"Cannot register host tool under built-in name '{target_name}'. Built-in tools cannot be overwritten."
+            )
+
         resolved_desc = description if description is not None else getattr(fn, "_voicecore_description", None)
 
         # Host tools default to tier T1 if tier not specified

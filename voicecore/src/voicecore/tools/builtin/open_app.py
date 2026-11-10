@@ -64,7 +64,7 @@ def open_app(
         return {
             "ok": False,
             "error": "not_allowed",
-            "message": f"Application '{app_name}' is not in the authorized allowlist.",
+            "message": f"'{app_name}' is not an allowed app.",
         }
 
     # Security rule 2: Executable is retrieved exclusively from allowlist dictionary value
@@ -103,5 +103,5 @@ def open_app_precheck(args: Dict[str, Any], allowlist: Optional[Dict[str, str]] 
     normalized = app_name.lower().strip()
     mapping = allowlist if allowlist is not None else load_allowlist()
     if normalized not in mapping:
-        return False, f"Application '{app_name}' is not in the authorized allowlist."
+        return False, f"'{app_name}' is not an allowed app."
     return True, ""

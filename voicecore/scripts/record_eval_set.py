@@ -91,6 +91,24 @@ RECORDING_SET: List[Dict[str, Any]] = [
 ]
 
 
+AMBIENT_SET: List[Dict[str, Any]] = [
+    # 3 repeats of typing (10 seconds each)
+    {"id": "typing_1", "category": "typing", "prompt": "10s of steady keyboard typing (press keys naturally)", "duration_s": 10.0},
+    {"id": "typing_2", "category": "typing", "prompt": "10s of fast typing with spacebar & backspace clicks", "duration_s": 10.0},
+    {"id": "typing_3", "category": "typing", "prompt": "10s of intermittent typing and mouse clicks", "duration_s": 10.0},
+
+    # 3 repeats of music with vocals (10 seconds each)
+    {"id": "music_1", "category": "music_with_vocals", "prompt": "10s of music track with vocal singing (verse)", "duration_s": 10.0},
+    {"id": "music_2", "category": "music_with_vocals", "prompt": "10s of music track with vocal singing (chorus)", "duration_s": 10.0},
+    {"id": "music_3", "category": "music_with_vocals", "prompt": "10s of music track with mixed vocal harmonies", "duration_s": 10.0},
+
+    # 3 repeats of nearby talking (10 seconds each)
+    {"id": "talking_1", "category": "nearby_talking", "prompt": "10s of nearby room conversation / chatter", "duration_s": 10.0},
+    {"id": "talking_2", "category": "nearby_talking", "prompt": "10s of background podcast / video speech", "duration_s": 10.0},
+    {"id": "talking_3", "category": "nearby_talking", "prompt": "10s of ambient conversational dialogue", "duration_s": 10.0},
+]
+
+
 def normalize_words(text: str) -> List[str]:
     """Clean punctuation and lowercase for WER computation."""
     cleaned = re.sub(r"[^\w\s]", "", text.lower())
@@ -341,21 +359,282 @@ def evaluate_dataset(recordings_dir: Path) -> int:
     return 0
 
 
+def generate_ambient_samples(ambient_dir: Path) -> int:
+    """Generate 10s synthetic ambient WAV samples for offline testing."""
+    import numpy as np
+    ambient_dir.mkdir(parents=True, exist_ok=True)
+    sr = 16000
+    dur = 10.0
+    n_samples = int(sr * dur)
+    t = np.linspace(0, dur, n_samples, endpoint=False)
+
+    labels = []
+    for item in AMBIENT_SET:
+        clip_id = item["id"]
+        cat = item["category"]
+        wav_path = ambient_dir / f"{clip_id}.wav"
+
+        if cat == "typing":
+            # 10s of realistic acoustic mechanical keyboard keystrokes
+            sig = np.zeros(n_samples, dtype=np.float32)
+            np.random.seed(abs(hash(clip_id)) % (2**32))
+            pos = 4000
+            while pos < n_samples - 2000:
+                click_len = np.random.randint(80, 240)
+                click_env = np.exp(-np.linspace(0, 10, click_len))
+                noise = np.random.randn(click_len) * click_env
+                freq = np.random.choice([1200, 1800, 2400, 3200])
+                click = noise + 0.3 * np.sin(2 * np.pi * freq * np.linspace(0, click_len/sr, click_len)) * click_env
+                sig[pos:pos+click_len] += click.astype(np.float32) * 0.4
+                pos += np.random.randint(int(sr * 0.12), int(sr * 0.45))
+        elif cat == "music_with_vocals":
+            # 10s of music containing chords + vocal-like formant sweep
+            np.random.seed(abs(hash(clip_id)) % (2**32))
+            chord = (
+                0.25 * np.sin(2 * np.pi * 220.0 * t) +
+                0.20 * np.sin(2 * np.pi * 277.18 * t) +
+                0.20 * np.sin(2 * np.pi * 329.63 * t)
+            )
+            vocal_pitch = 180.0 + 10.0 * np.sin(2 * np.pi * 4.5 * t)
+            vocal_formant = 0.35 * np.sin(2 * np.pi * vocal_pitch * t) * (1.0 + 0.5 * np.sin(2 * np.pi * 0.5 * t))
+            sig = (chord + vocal_formant).astype(np.float32) * 0.5
+        else:  # nearby_talking
+            # 10s of conversational speech formant bursts
+            np.random.seed(abs(hash(clip_id)) % (2**32))
+            sig = np.zeros(n_samples, dtype=np.float32)
+            pos = 2000
+            while pos < n_samples - 2000:
+                burst_len = np.random.randint(int(sr * 0.4), int(sr * 1.2))
+                burst_len = min(burst_len, n_samples - pos)
+                tb = np.linspace(0, burst_len/sr, burst_len)
+                pitch = float(np.random.choice([120.0, 160.0, 210.0]))
+                f1 = 500.0 + 150.0 * np.sin(2 * np.pi * 3.0 * tb)
+                vocal = np.sin(2 * np.pi * pitch * tb) * (0.5 * np.sin(2 * np.pi * f1 * tb))
+                env = np.sin(np.pi * np.linspace(0, 1, burst_len))
+                sig[pos:pos+burst_len] += (vocal * env).astype(np.float32) * 0.45
+                pos += burst_len + np.random.randint(int(sr * 0.2), int(sr * 0.8))
+
+        # Peak normalize to prevent clipping
+        max_val = np.max(np.abs(sig))
+        if max_val > 0:
+            sig = (sig / max_val) * 0.8
+        int16_pcm = (sig * 32767).astype(np.int16)
+
+        with wave.open(str(wav_path), "wb") as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(sr)
+            wf.writeframes(int16_pcm.tobytes())
+
+        labels.append({
+            "id": clip_id,
+            "filename": f"{clip_id}.wav",
+            "category": cat,
+            "duration_s": dur,
+            "prompt": item["prompt"],
+        })
+        print(f"  [GENERATED] {clip_id}.wav ({dur}s, category={cat})")
+
+    labels_file = ambient_dir / "ambient_labels.json"
+    with labels_file.open("w", encoding="utf-8") as f:
+        json.dump(labels, f, indent=2)
+    print(f"\nSaved {len(labels)} ambient sample audio clips to {ambient_dir}")
+    return 0
+
+
+def record_ambient_dataset(ambient_dir: Path) -> int:
+    """Interactively record 10s ambient negative clips (typing, music, nearby talking)."""
+    ambient_dir.mkdir(parents=True, exist_ok=True)
+    labels_file = ambient_dir / "ambient_labels.json"
+
+    print("=" * 80)
+    print(f" VoiceCore: Ambient Negative Evaluation Recorder ({len(AMBIENT_SET)} clips of 10s)")
+    print(" Target: 3 repeats of typing, 3 repeats of music with vocals, 3 repeats of talking")
+    print(f" Output Directory: {ambient_dir}")
+    print("=" * 80)
+
+    cfg = AudioConfig(max_seconds=15)
+    capture = AudioCapture(config=cfg)
+
+    labels = []
+    for item in AMBIENT_SET:
+        clip_id = item["id"]
+        cat = item["category"]
+        prompt = item["prompt"]
+        duration = item["duration_s"]
+        wav_filename = f"{clip_id}.wav"
+        wav_path = ambient_dir / wav_filename
+
+        print(f"\n[{clip_id.upper()}] Category: {cat}")
+        print(f"  Instruction: {prompt}")
+        print(f"  Clip Duration: {duration:.1f} seconds")
+        input("  Press ENTER when ready to start 10s recording...")
+
+        print(f"  Recording for {duration:.1f} seconds... (Perform the action now!)")
+        capture.start()
+        t0 = time.time()
+        while time.time() - t0 < duration:
+            time.sleep(0.1)
+
+        samples = capture.stop()
+        if samples is None or len(samples) == 0:
+            print(f"  [WARN] No audio recorded for {clip_id}. Skipping.")
+            continue
+
+        int16_samples = (samples * 32767).astype("int16")
+        with wave.open(str(wav_path), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(16000)
+            w.writeframes(int16_samples.tobytes())
+
+        print(f"  [SAVED] {wav_filename} ({len(samples)/16000:.1f}s)")
+        labels.append({
+            "id": clip_id,
+            "filename": wav_filename,
+            "category": cat,
+            "duration_s": round(len(samples)/16000, 2),
+            "prompt": prompt,
+        })
+        with labels_file.open("w", encoding="utf-8") as f:
+            json.dump(labels, f, indent=2)
+
+    capture.close()
+    print("\n" + "=" * 80)
+    print(f"Ambient recording session finished. Total clips: {len(labels)}")
+    print(f"Run `python scripts/record_eval_set.py --ambient --eval` to evaluate.")
+    print("=" * 80)
+    return 0
+
+
+def evaluate_ambient_dataset(ambient_dir: Path) -> int:
+    """Evaluate 10s ambient negative clips through WhistleASR, NeedleRouter, and PolicyGate."""
+    labels_file = ambient_dir / "ambient_labels.json"
+    if not labels_file.is_file():
+        wavs = list(ambient_dir.glob("*.wav"))
+        if not wavs:
+            print(f"[NOTICE] No ambient recordings found in {ambient_dir}. Generating synthetic samples...")
+            generate_ambient_samples(ambient_dir)
+            if not labels_file.is_file():
+                return 1
+
+    with labels_file.open("r", encoding="utf-8") as f:
+        labels = json.load(f)
+
+    config = VoiceCoreConfig()
+    registry = ToolRegistry()
+    registry.register(open_app, tier="T1", name="open_app", precheck=open_app_precheck, triggers=["open", "launch"])
+    registry.register(search_files, tier="T0", name="search_files", precheck=search_files_precheck, triggers=["search", "find"])
+    registry.register(set_reminder, tier="T1", name="set_reminder", precheck=set_reminder_precheck, triggers=["remind", "reminder"])
+
+    gate = PolicyGate(config=config.policy, registry=registry)
+    router = NeedleRouter(registry=registry, stateless=True)
+    asr = WhistleASR(config=config.asr, debug_config=config.debug)
+
+    print("=" * 105)
+    print(f" VoiceCore: Evaluating {len(labels)} Ambient 10s Clips (Typing, Music with Vocals, Nearby Talking)")
+    print(" Verifying Safety Guarantee: Exactly ZERO actions must fire (ACT = 0%)")
+    print("=" * 105)
+
+    headers = f"{'Clip ID':12s} | {'Category':18s} | {'Whistle Transcript':32s} | {'Confidence':10s} | {'Gate Outcome':12s} | Status"
+    print(headers)
+    print("-" * 105)
+
+    actions_fired = 0
+    results = []
+
+    for item in labels:
+        clip_id = item["id"]
+        cat = item["category"]
+        wav_file = ambient_dir / item.get("filename", f"{clip_id}.wav")
+        if not wav_file.is_file():
+            print(f"[MISSING] {wav_file}")
+            continue
+
+        transcript_obj = asr.transcribe(wav_file)
+        raw_text = transcript_obj.text.strip()
+        display_transcript = f'"{raw_text}"' if raw_text else "(Silence / No Speech)"
+        if len(display_transcript) > 32:
+            display_transcript = display_transcript[:29] + '..."'
+
+        if not raw_text:
+            calls_str = "None"
+            conf_str = "0.0000"
+            gate_decision = "NO_SPEECH"
+            status = "SAFE (Zero action)"
+        else:
+            route_res = router.route(raw_text)
+            conf_str = f"{route_res.confidence:.4f}"
+            if not route_res.calls:
+                gate_decision = "NO_CALLS"
+                status = "SAFE (Zero action)"
+            else:
+                call = route_res.calls[0]
+                dec = gate.decide(
+                    call=call,
+                    confidence=route_res.confidence,
+                    negation=route_res.negation,
+                    ungrounded=route_res.ungrounded,
+                )
+                gate_decision = dec.decision
+                if dec.decision == Decision.ACT:
+                    actions_fired += 1
+                    status = "VIOLATION (Action Fired!)"
+                else:
+                    status = f"SAFE ({dec.decision})"
+
+        print(f"{clip_id:12s} | {cat:18s} | {display_transcript:32s} | {conf_str:10s} | {gate_decision:12s} | {status}")
+        results.append({
+            "clip_id": clip_id,
+            "category": cat,
+            "transcript": raw_text,
+            "gate_decision": gate_decision,
+            "status": status,
+        })
+
+    print("-" * 105)
+    print("\n[AMBIENT EVALUATION SUMMARY]")
+    print(f"  Total 10s Ambient Clips Evaluated: {len(results)}")
+    print(f"  Total Actions Fired (ACT):         {actions_fired}")
+    print(f"  False-Action Rate:                 {actions_fired / max(1, len(results)) * 100.0:.1f}%")
+    print(f"  Negative Safety Verification:      {'PASS (100% Zero Actions Fired)' if actions_fired == 0 else 'FAIL'}")
+    print("=" * 105)
+    router.close()
+    return 0 if actions_fired == 0 else 1
+
+
 def main():
     parser = argparse.ArgumentParser(description="VoiceCore: Evaluation Audio Recording & WER Benchmark")
     parser.add_argument("--eval", action="store_true", help="Run WER and routing evaluation on saved recordings")
-    parser.add_argument("--dir", type=str, default="tests/eval/audio/user_recordings", help="Recordings directory")
+    parser.add_argument("--ambient", action="store_true", help="Record or evaluate 10s ambient negative clips (typing, music, talking)")
+    parser.add_argument("--generate-samples", action="store_true", help="Generate synthetic ambient audio clips for testing")
+    parser.add_argument("--dir", type=str, default="", help="Recordings directory (default: user_recordings or ambient_eval)")
     args = parser.parse_args()
 
-    recordings_dir = Path(args.dir)
+    base_dir = Path(__file__).resolve().parent.parent
+
+    if args.ambient:
+        ambient_dir = Path(args.dir) if args.dir else base_dir / "tests" / "test_data" / "audio" / "ambient_eval"
+        if not ambient_dir.is_absolute():
+            ambient_dir = base_dir / args.dir
+
+        if args.generate_samples:
+            return generate_ambient_samples(ambient_dir)
+        elif args.eval:
+            return evaluate_ambient_dataset(ambient_dir)
+        else:
+            return record_ambient_dataset(ambient_dir)
+
+    recordings_dir = Path(args.dir) if args.dir else base_dir / "tests" / "eval" / "audio" / "user_recordings"
     if not recordings_dir.is_absolute():
-        recordings_dir = Path(__file__).resolve().parent.parent / args.dir
+        recordings_dir = base_dir / args.dir
 
     if args.eval:
         return evaluate_dataset(recordings_dir)
     else:
         record_dataset(recordings_dir)
         return 0
+
 
 
 if __name__ == "__main__":

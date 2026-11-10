@@ -66,17 +66,38 @@ This file records all architectural deviations, decisions, and resolutions again
 
 ---
 
-## DECISION-004: Level-2 (WebSocket Sidecar) Assessment and Roadmap
+## DECISION-004: Level-2 (WebSocket Sidecar) Assessment and Architecture Specification
 
-- **Status:** DEFERRED to P1 (Level-1 Python Library is P0 primary)
+- **Status:** SPECIFIED; IMPLEMENTATION DEFERRED TO P1
 - **Date:** 2026-11-10
 - **Context:**
-  - `docs/07_PLUGIN_CONTRACT.md` proposes two integration levels:
-    - **Level 1:** In-process Python library (`VoiceAssistant`, `@tool`).
-    - **Level 2:** Local WebSocket sidecar (`python -m voicecore --serve --port 8765`) for non-Python frontends (Tauri in Rust, Electron in TypeScript).
-  - VYKE in P0 is pure Python.
-- **Resolution:**
-  - Level 1 fulfills 100% of P0 requirements with zero-IPC overhead, zero serialization latency, synchronous event callbacks, and in-memory policy enforcement.
-  - Level 2 is architecturally specified in `docs/07_PLUGIN_CONTRACT.md` and deferred until a non-Python frontend host is introduced in P1.
+  - `docs/07_PLUGIN_CONTRACT.md` proposes two plugin consumption tiers:
+    - **Level 1:** In-process Python library (`from voicecore import VoiceAssistant, tool`).
+    - **Level 2:** Local WebSocket sidecar (`python -m voicecore --serve --port 8765`) for non-Python frontends (Tauri in Rust, Electron in TypeScript/Node, Flutter in Dart).
+  - P0's target application (VYKE) and evaluation harness are 100% Python.
+- **Level-2 Technical Specification:**
+  1. **Network & Binding:**
+     - Must bind exclusively to `127.0.0.1` (loopback). Never `0.0.0.0` or external network adapters.
+     - Ephemeral port or configurable `--port` (default `8765`).
+  2. **Authentication:**
+     - Ephemeral random per-launch Bearer token passed by host via CLI `--token <UUID4>` or environment variable `VOICECORE_AUTH_TOKEN`.
+     - Reject WebSocket handshake immediately (HTTP 401) if header `Authorization: Bearer <token>` is missing or invalid.
+  3. **Message Protocol:**
+     - JSON envelope: `{"v": 1, "type": "<event_or_command>", "payload": { ... }}`
+     - **Host -> Core Commands:**
+       * `register_tools`: JSON list of tool schemas, risk tiers, and triggers.
+       * `start_listening` / `stop_listening`: Trigger push-to-talk capture.
+       * `text`: Send raw text query (e.g. for testing / typed UI).
+       * `confirm_response`: `{"run_id": "...", "approved": true/false}`.
+       * `tool_result`: `{"run_id": "...", "call_id": "...", "result": { ... }}` returning execution output for host-managed tools.
+     - **Core -> Host Events:**
+       * Dispatches all standard event stream items (`listening_started`, `transcript`, `route`, `gate`, `confirm_request`, `tool_result`, `reminder_due`, `done`).
+       * `tool_call_request`: Dispatched when a host-registered tool passes policy gate. Core sends call arguments to host and suspends until host replies with `tool_result` (with 10s timeout).
+  4. **Policy Enforcement:**
+     - Host-registered tools over WebSocket keep their declared risk tiers, and undergo the exact same `PolicyGate` evaluation (confidence thresholds, precheck validation, negation check) prior to dispatching `tool_call_request`.
+- **Resolution for P0:**
+  - Level 1 fulfills 100% of P0 requirements with zero serialization overhead, zero IPC socket latency (~0 ms), and complete type safety.
+  - Level 2 is fully specified and will be implemented when non-Python frontend integration (Tauri/Electron UI) commences in P1. Thresholds remain frozen at 0.80/0.50 until human audio is evaluated.
+
 
 
