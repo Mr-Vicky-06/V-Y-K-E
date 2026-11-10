@@ -61,7 +61,12 @@ def main() -> int:
     parser.add_argument("--text", type=str, help="Run pipeline with raw text input (no microphone)")
     parser.add_argument("--config", type=str, default="config/voicecore.toml", help="Path to voicecore.toml config")
     parser.add_argument("--dry-run", action="store_true", help="Simulate tool actions without OS side-effects")
-    parser.add_argument("--yes", "-y", action="store_true", help="Automatically confirm actions that require confirmation")
+    parser.add_argument(
+        "--yes",
+        "-y",
+        action="store_true",
+        help="[DEV-ONLY] Automatically approve confirmation prompts for T0/T1; never applies to T2",
+    )
     parser.add_argument("--no-log", action="store_true", help="Disable structured event console output")
 
     args = parser.parse_args()
@@ -113,8 +118,14 @@ def main() -> int:
     )
 
     def cli_confirmer(call) -> bool:
+        tier = registry.get_tier(call.name)
+        if tier == "T2":
+            # Defense-in-depth: --yes never applies to T2
+            print(f"[SECURITY] Action '{call.name}' is Tier T2 (privileged/destructive). Auto-confirm (--yes) is disabled.")
+            return False
+
         if args.yes or args.dry_run:
-            print(f"[CLI] Auto-confirming action '{call.name}'")
+            print(f"[CLI] Auto-confirming action '{call.name}' (Tier {tier})")
             return True
         try:
             resp = input(f"Confirm execution of '{call.name}' with arguments {call.arguments}? [y/N]: ")

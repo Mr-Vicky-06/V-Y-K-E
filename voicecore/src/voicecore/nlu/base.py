@@ -29,3 +29,4 @@ class Router(Protocol):
     def route(self, text: str) -> RouteResult:
         """Parse natural language text and return ordered tool calls with confidence."""
         ...
+

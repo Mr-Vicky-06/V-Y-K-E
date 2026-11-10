@@ -100,3 +100,4 @@ class PolicyGate:
                 f"(between {self.config.confirm_threshold:.2f} and {self.config.act_threshold:.2f})"
             ),
         )
+

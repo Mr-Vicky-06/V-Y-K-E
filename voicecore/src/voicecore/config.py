@@ -74,3 +74,4 @@ class VoiceCoreConfig:
             )
 
         return cls(audio=audio, asr=asr, policy=policy, search=search, debug=debug)
+

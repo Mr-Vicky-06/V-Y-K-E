@@ -92,3 +92,4 @@ def test_registry_safe_execution_catches_runtime_exception():
     res = reg.execute("buggy", {})
     assert res["ok"] is False
     assert "ZeroDivisionError" in res["error"]
+

@@ -1,6 +1,9 @@
 {
   "notepad": "notepad.exe",
   "calculator": "calc.exe",
+  "calc": "calc.exe",
   "paint": "mspaint.exe",
-  "file explorer": "explorer.exe"
+  "mspaint": "mspaint.exe",
+  "file explorer": "explorer.exe",
+  "explorer": "explorer.exe"
 }

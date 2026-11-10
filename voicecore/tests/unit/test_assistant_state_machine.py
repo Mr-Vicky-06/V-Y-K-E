@@ -199,3 +199,4 @@ def test_assistant_router_crash_recovers_to_idle(test_setup):
 
     assert assistant.state == State.IDLE
     assert any(isinstance(e, ErrorEvent) for e in events_seen)
+

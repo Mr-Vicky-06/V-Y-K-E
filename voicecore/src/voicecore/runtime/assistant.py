@@ -195,3 +195,4 @@ class Assistant:
             )
             self.state = State.IDLE
             raise
+

@@ -1,0 +1,32 @@
+{"utterance": "open notepad", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "notepad"}}], "category": "single_action"}
+{"utterance": "launch calculator", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "calculator"}}], "category": "single_action"}
+{"utterance": "open calc", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "calc"}}], "category": "single_action"}
+{"utterance": "start paint", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "paint"}}], "category": "single_action"}
+{"utterance": "open file explorer", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "file explorer"}}], "category": "single_action"}
+{"utterance": "please open the notepad application", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "notepad"}}], "category": "paraphrase"}
+{"utterance": "bring up calculator", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "calculator"}}], "category": "paraphrase"}
+{"utterance": "open notepad and open calculator", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "notepad"}}, {"name": "open_app", "arguments": {"app_name": "calculator"}}], "category": "multi_action"}
+{"utterance": "open paint and open notepad", "expected_calls": [{"name": "open_app", "arguments": {"app_name": "paint"}}, {"name": "open_app", "arguments": {"app_name": "notepad"}}], "category": "multi_action"}
+{"utterance": "search files for quarterly report", "expected_calls": [{"name": "search_files", "arguments": {"query": "quarterly report"}}], "category": "single_action"}
+{"utterance": "find files named budget", "expected_calls": [{"name": "search_files", "arguments": {"query": "budget"}}], "category": "single_action"}
+{"utterance": "search local files for project proposal", "expected_calls": [{"name": "search_files", "arguments": {"query": "project proposal"}}], "category": "single_action"}
+{"utterance": "find my resume file", "expected_calls": [{"name": "search_files", "arguments": {"query": "resume"}}], "category": "single_action"}
+{"utterance": "set a reminder to call mom tomorrow at 10:00", "expected_calls": [{"name": "set_reminder", "arguments": {"message": "call mom", "when": "2026-11-11T10:00:00"}}], "category": "single_action"}
+{"utterance": "remind me to buy milk tomorrow at 18:00", "expected_calls": [{"name": "set_reminder", "arguments": {"message": "buy milk", "when": "2026-11-11T18:00:00"}}], "category": "single_action"}
+{"utterance": "set a reminder for team meeting tomorrow at 09:00", "expected_calls": [{"name": "set_reminder", "arguments": {"message": "team meeting", "when": "2026-11-11T09:00:00"}}], "category": "single_action"}
+{"utterance": "what is the capital of France?", "expected_calls": [], "category": "negative_qa"}
+{"utterance": "tell me a funny joke", "expected_calls": [], "category": "negative_conversational"}
+{"utterance": "don't open notepad", "expected_calls": [], "category": "negative_negation"}
+{"utterance": "do not set a reminder for 5pm", "expected_calls": [], "category": "negative_negation"}
+{"utterance": "open that app we used yesterday", "expected_calls": [], "category": "negative_vague"}
+{"utterance": "find the file about that thing", "expected_calls": [], "category": "negative_vague"}
+{"utterance": "open", "expected_calls": [], "category": "negative_missing_arg"}
+{"utterance": "set a reminder", "expected_calls": [], "category": "negative_missing_arg"}
+{"utterance": "search files", "expected_calls": [], "category": "negative_missing_arg"}
+{"utterance": "open notes", "expected_calls": [], "category": "negative_near_miss"}
+{"utterance": "who won the world cup in 2022?", "expected_calls": [], "category": "negative_qa"}
+{"utterance": "play some jazz music on spotify", "expected_calls": [], "category": "negative_unsupported"}
+{"utterance": "how is the weather outside today?", "expected_calls": [], "category": "negative_unsupported"}
+{"utterance": "good morning how are you doing", "expected_calls": [], "category": "negative_smalltalk"}
+{"utterance": "delete all files in documents", "expected_calls": [], "category": "negative_forbidden_t2"}
+{"utterance": "send an email to my manager", "expected_calls": [], "category": "negative_forbidden_t2"}

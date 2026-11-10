@@ -1,4 +1,4 @@
-﻿# VoiceCore dev setup — Windows PowerShell. Run from project root or voicecore folder: .\scripts\setup.ps1
+# VoiceCore dev setup — Windows PowerShell. Run from project root or voicecore folder: .\scripts\setup.ps1
 $ErrorActionPreference = "Stop"
 
 if (Test-Path .\voicecore) { Set-Location .\voicecore }

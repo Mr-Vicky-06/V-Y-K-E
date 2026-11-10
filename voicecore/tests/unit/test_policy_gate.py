@@ -88,3 +88,4 @@ def test_gate_refuse_on_ungrounded_arguments(gate):
     dec = gate.decide(call, confidence=0.95, ungrounded=["write_tool.msg"])
     assert dec.decision == Decision.REFUSE
     assert "Ungrounded arguments detected" in dec.reason
+

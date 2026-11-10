@@ -19,3 +19,4 @@ class ASR(Protocol):
     def transcribe(self, audio: Any) -> Transcript:
         """Transcribe audio (file path or in-memory samples) into text."""
         ...
+

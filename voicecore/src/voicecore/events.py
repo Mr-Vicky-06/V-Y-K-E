@@ -127,3 +127,4 @@ class EventBus:
             except Exception:
                 # Event dispatching must never crash the pipeline
                 pass
+

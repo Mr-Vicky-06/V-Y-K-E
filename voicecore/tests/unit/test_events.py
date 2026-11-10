@@ -97,3 +97,4 @@ def test_event_bus_thread_safety():
         t.join()
 
     assert len(received) == 10
+
