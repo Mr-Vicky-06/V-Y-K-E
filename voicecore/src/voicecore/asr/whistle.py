@@ -88,3 +88,4 @@ class WhistleASR(ASR):
                 w.writeframes(int16_samples.tobytes())
         except Exception:
             pass
+

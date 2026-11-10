@@ -54,3 +54,4 @@ def test_open_app_invalid_inputs():
     assert open_app("", dry_run=True)["ok"] is False
     assert open_app(None, dry_run=True)["ok"] is False
     assert open_app(123, dry_run=True)["ok"] is False
+

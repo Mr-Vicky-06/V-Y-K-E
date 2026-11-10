@@ -2,10 +2,12 @@
 [audio]
 hotkey = "ctrl+alt+space"   # push-to-talk; the listener must react to this combo only
 max_seconds = 30
+min_press_seconds = 0.3     # ignore accidental taps shorter than this threshold
+device = ""                 # device name substring or index; empty string picks primary hardware mic
 
 [asr]
 language = "en"             # Whistle: en, de, fr, es, it, nl, pl (no Tamil)
-keywords = []               # names/jargon to bias toward, e.g. ["Antigravity", "Chennai"]
+keywords = ["notepad", "calculator"]  # names/jargon to bias toward
 
 [policy]
 act_threshold = 0.80

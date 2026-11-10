@@ -9,6 +9,7 @@ from typing import Any, Dict, Optional
 
 DEFAULT_ALLOWLIST = {
     "notepad": "notepad.exe",
+    "node pad": "notepad.exe",
     "calculator": "calc.exe",
     "calc": "calc.exe",
     "paint": "mspaint.exe",

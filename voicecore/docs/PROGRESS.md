@@ -8,9 +8,9 @@ This document tracks progress, milestones, spike discoveries, and git commits ac
 
 | Milestone | Description | Status | Evidence / Artifacts |
 |---|---|---|---|
-| **M0** | Environment, Repo Skeleton & Spikes (S1–S4, S2b) | **COMPLETED & APPROVED** | `verify_env.py` (6/6 PASS); `docs/SPIKES.md` (S1–S4, S2b); `docs/DECISIONS.md` (DECISION-001) |
-| **M1** | Core Pipeline (Text In, Protocols, Gate, Assistant) | **READY FOR REVIEW** | `python -m voicecore --text "open notepad"` verified; 32 tests passing; acceptance proof documented |
-| **M2** | Mic Capture + Whistle Offline ASR | PENDING | Push-to-talk capture + offline speech-to-text proof |
+| **M0** | Environment, Repo Skeleton & Spikes (S1–S4, S2b) | **COMPLETED & APPROVED** | `verify_env.py` (6/6 PASS); `docs/SPIKES.md`; `docs/DECISIONS.md` |
+| **M1** | Core Pipeline (Text In, Protocols, Gate, Assistant) | **COMPLETED & APPROVED** | `python -m voicecore --text "open notepad"` verified; 32 tests passing |
+| **M2** | Mic Capture + Whistle Offline ASR | **READY FOR REVIEW** | `--mic` CLI; native audio capture + soxr resample; negative audio eval (9/9 runs: 0 actions); 100% offline verified |
 | **M3** | Real Tools (`open_app`, `set_reminder`, `search_files`) | PENDING | Security unit tests + allowlists |
 | **M4** | Model Evaluation & Latency Calibration | PENDING | `tests/eval/intents.jsonl`, latency metrics, `docs/EVAL_REPORT.md` |
 | **M5** | Plugin API & Release | PENDING | Level-1 Python surface, sample host, tag v0.1.0 |
@@ -22,56 +22,40 @@ This document tracks progress, milestones, spike discoveries, and git commits ac
 ### Milestone M0: Environment & Foundation (Approved)
 - **Commit 1 (`e6f9f56`): Repository initialization & baseline architecture**
   - Initialized Git repository targeting `https://github.com/Mr-Vicky-06/V-Y-K-E.git`.
-  - Added root and package `.gitignore` files to safeguard against committing virtualenvs, model weights (`.cact`, `.safetensors`), and bytecode.
-  - Established `src/voicecore` layout: `audio/`, `asr/`, `nlu/`, `policy/`, `tools/`, `runtime/`, `plugin/`.
-  - Configured `pyproject.toml` with project metadata and dependencies.
-  - Added skeleton unit test in `tests/unit/test_skeleton.py`.
-  - Created top-level `README.md` and initial `docs/PROGRESS.md`.
+  - Configured `pyproject.toml`, `.gitignore`, `src/voicecore` layout, and skeleton tests.
 - **Commit 2 (`ce67709`): Spike investigation, decision ADR, and environment verification**
-  - Documented ADR `DECISION-001` in `docs/DECISIONS.md` resolving engine migration from `cactus-needle` to `cactus-compute`.
-  - Documented complete raw outputs for Spikes S1, S2, S3, and S4 in `docs/SPIKES.md`.
-  - Updated `scripts/verify_env.py` and `scripts/setup.ps1` to test the live runtime and privacy guardrails.
-  - Verified 6/6 tests passing in `scripts/verify_env.py` and green `pytest`.
+  - Documented ADR `DECISION-001` in `docs/DECISIONS.md`.
+  - Documented raw outputs for Spikes S1–S4 in `docs/SPIKES.md`.
 - **Commit 3 (`318c7d1`): M0 conditions resolution & Spike S2b diagnostic**
-  - Pinned `cactus-compute[mic]==4.1.0` in `pyproject.toml` and `setup.ps1`.
-  - Recorded exact SHA-256 checksums of wheels and `.cact` models in `docs/DECISIONS.md`.
+  - Pinned `cactus-compute[mic]==4.1.0`.
+  - Recorded SHA-256 hashes of wheels and `.cact` models in `docs/DECISIONS.md`.
   - Added unified `voicecore.engine` adapter (`src/voicecore/engine.py`).
-  - Relabeled S4 as partially verified (parsing only; physical hook test in M2).
-  - Executed Spike S2b across 12 phrases; validated `negation`, `ungrounded`, and `confidence` thresholds.
+  - Executed Spike S2b across 12 phrases.
 
-### Milestone M1: Core Pipeline, Text In
-- **Commit 4: Core pipeline architecture, protocols, policy gate, and CLI**
-  - Implemented `asr/base.py` (`Transcript`, `ASR` Protocol) and `nlu/base.py` (`ToolCall`, `RouteResult`, `Router` Protocol).
-  - Implemented `voicecore.config` loading `config/voicecore.toml` with threshold validation.
-  - Implemented thread-safe synchronous `EventBus` and dataclass events in `events.py`.
-  - Implemented `ToolRegistry` with risk tiers (T0/T1/T2), schema export, and safe execution isolation.
-  - Implemented `PolicyGate` enforcing negation refusal, ungrounded parameter checks, T2 restriction, and confidence thresholds.
+### Milestone M1: Core Pipeline, Text In (Approved)
+- **Commit 4 (`1391b95`): Core pipeline architecture, protocols, policy gate, and CLI**
+  - Implemented ASR and Router protocols in `asr/base.py` and `nlu/base.py`.
+  - Implemented `ToolRegistry` with risk tiers and safe execution isolation.
+  - Implemented `PolicyGate` enforcing negation, ungrounded parameter checks, and confidence gating.
   - Implemented `NeedleRouter` wrapping `NeedleAgent` with grammar-constrained tool calling.
-  - Implemented `Assistant` runtime state machine adhering to the workflow states in `docs/05`.
-  - Built CLI entrypoint `voicecore/__main__.py` supporting `--text "..."` and `--dry-run`.
-  - Implemented 32 unit and integration tests across all modules (100% passing in 1.70s).
-  - Successfully verified M1 acceptance proof: `python -m voicecore --text "open notepad"`.
+  - Implemented `Assistant` runtime state machine coordinating routing, gating, and execution.
+  - Added CLI `python -m voicecore --text "..."`.
+  - Verified 32 unit tests passing.
+- **Commit 5 (`e186ab1`): Safety tests, allowlist aliases, real_model marker, and negative eval intents**
+  - Added `open_app` safety tests verifying allowlist containment, rejection of shell injection, and `shell=False`.
+  - Added allowlist aliases for `calc` and `mspaint`.
+  - Added pytest `real_model` marker so `pytest -q` runs offline unit tests by default.
+  - Marked `--yes` as dev-only and strictly prohibited for T2 operations.
+  - Initialized `tests/eval/intents.jsonl` with 32 test utterances including negative cases.
 
----
-
-## Technical Spike Findings (M0 & M1)
-
-### S1: Package & Engine Verification
-- **Status:** **VERIFIED**
-- **Finding:** Engine binaries consolidated under `cactus-compute==4.1.0`. All imports routed via `voicecore.engine`.
-
-### S2: Return Shapes of `run()` and `complete()`
-- **Status:** **VERIFIED**
-- **Finding:** `complete()` parses arguments into `function_calls` and extracts `confidence` without running decorated tools, allowing `PolicyGate` evaluation.
-
-### S2b: Edge-Case Evaluation of `complete()`
-- **Status:** **VERIFIED**
-- **Finding:** Validated 12 edge cases. Explicit negations trigger `validation.negation=True` and call suppression; ungrounded parameters populate `validation.ungrounded`; off-topic queries yield low confidence (< 0.22) or zero calls.
-
-### S3: `transcribe` Input Formats & Silence Behavior
-- **Status:** **VERIFIED**
-- **Finding:** Supports file paths (`str`, `Path`) and 16 kHz numpy arrays. Silence returns empty transcript without errors.
-
-### S4: Hotkey Listener Security (`pynput`)
-- **Status:** **Partially verified (parsing only; physical hook test in M2)**
-- **Finding:** `pynput.keyboard.HotKey` listening to `<ctrl>+<alt>+<space>` filters all non-configured keys.
+### Milestone M2: Mic Capture + Whistle Offline ASR
+- **Commit 6: Microphone capture, native rate resampling, hotkey listener, negative eval, and offline verification**
+  - Implemented `AudioCapture` (`src/voicecore/audio/capture.py`): auto-detects hardware mic (skipping "Microsoft Sound Mapper"), records at device native rate, resamples to 16 kHz using `soxr`, and enforces 30s max duration cap.
+  - Implemented `HotkeyListener` (`src/voicecore/audio/hotkey.py`): tracks only configured combo (`ctrl+alt+space`), disregards non-combo keys, and enforces debounce filtering for presses < 0.3s.
+  - Implemented `WhistleASR` (`src/voicecore/asr/whistle.py`) with keyword biasing (`notepad`, `calculator`) and in-memory audio discard.
+  - Added `--mic` push-to-talk mode to `voicecore/__main__.py`.
+  - Added `Assistant.run_audio(...)` supporting end-to-end speech processing.
+  - Created synthetic audio test suite (`silence.wav`, `keyboard_noise.wav`, `music_clip_10s.wav`).
+  - Executed negative audio evaluation: 3 repeats each across silence, keyboard noise, and 10s music clip: **ZERO actions executed (9/9 PASS)**.
+  - Verified 100% offline contract with strictly blocked network sockets in `test_offline_contract.py`.
+  - 48 tests passing in full test suite.

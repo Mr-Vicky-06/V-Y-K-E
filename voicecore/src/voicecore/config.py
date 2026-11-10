@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 import sys
-from typing import List, Optional
+from typing import List, Optional, Union
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -16,6 +16,8 @@ else:
 class AudioConfig:
     hotkey: str = "ctrl+alt+space"
     max_seconds: int = 30
+    device: Optional[Union[str, int]] = None
+    min_press_seconds: float = 0.3
 
 
 @dataclass

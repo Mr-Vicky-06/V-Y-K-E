@@ -1,0 +1,70 @@
+{
+  "total_runs": 9,
+  "total_actions_fired": 0,
+  "passed": true,
+  "runs": [
+    {
+      "category": "silence",
+      "repeat": 1,
+      "elapsed_ms": 674.0504000335932,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "silence",
+      "repeat": 2,
+      "elapsed_ms": 3.800600068643689,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "silence",
+      "repeat": 3,
+      "elapsed_ms": 10.748700005933642,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "keyboard_noise",
+      "repeat": 1,
+      "elapsed_ms": 1730.4950000252575,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "keyboard_noise",
+      "repeat": 2,
+      "elapsed_ms": 1435.5822999496013,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "keyboard_noise",
+      "repeat": 3,
+      "elapsed_ms": 2371.0386999882758,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "music_clip_10s",
+      "repeat": 1,
+      "elapsed_ms": 14380.69469993934,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "music_clip_10s",
+      "repeat": 2,
+      "elapsed_ms": 7183.0058000050485,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    },
+    {
+      "category": "music_clip_10s",
+      "repeat": 3,
+      "elapsed_ms": 5286.27439995762,
+      "pipeline_results": [],
+      "actions_executed_count": 0
+    }
+  ]
+}
