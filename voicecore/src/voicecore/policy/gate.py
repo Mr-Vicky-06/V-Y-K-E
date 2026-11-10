@@ -101,11 +101,29 @@ class PolicyGate:
                 ),
             )
 
+        # Host-provided tool rule: host-provided tools default to always-CONFIRM
+        # unless they supply both an approved tier and an explicit precheck.
+        has_approved_tier = tool_def.tier in ("T0", "T1") and getattr(tool_def, "has_explicit_tier", True)
+        if tool_def.is_host:
+            has_precheck = tool_def.precheck is not None
+            can_act = has_approved_tier and has_precheck
+        else:
+            can_act = has_approved_tier
+
         if confidence >= self.config.act_threshold:
-            return PolicyDecision(
-                decision=Decision.ACT,
-                reason=f"Confidence {confidence:.4f} meets or exceeds act threshold {self.config.act_threshold:.2f}",
-            )
+            if can_act:
+                return PolicyDecision(
+                    decision=Decision.ACT,
+                    reason=f"Confidence {confidence:.4f} meets or exceeds act threshold {self.config.act_threshold:.2f}",
+                )
+            else:
+                return PolicyDecision(
+                    decision=Decision.CONFIRM,
+                    reason=(
+                        f"Confidence {confidence:.4f} meets act threshold, but host tool '{call.name}' "
+                        f"defaults to always-CONFIRM (requires both an approved tier and an explicit precheck to ACT directly)"
+                    ),
+                )
 
         # Between confirm_threshold and act_threshold
         return PolicyDecision(

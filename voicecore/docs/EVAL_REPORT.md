@@ -137,3 +137,4 @@ confirm_timeout_s = 10
    `[EVENT:REMINDER_DUE] *** ALARM: '<message>' (scheduled for <when>) ***`
 3. **NTFS Junction Test:** Verified running and passing in [`tests/unit/test_search_files.py::test_junction_outside_root_blocked`](file:///D:/VYKE/voicecore/tests/unit/test_search_files.py).
 4. **Symlink Test:** Documented Developer Mode prerequisite (`WinError 1314` on non-elevated Windows without Developer Mode enabled in Windows Settings). Under Developer Mode, `symlink_to` executes and verifies root containment.
+

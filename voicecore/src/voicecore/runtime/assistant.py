@@ -238,10 +238,13 @@ class Assistant:
 
             elif decision.decision == Decision.CONFIRM:
                 self.state = State.CONFIRMING
-                self.event_bus.publish(ConfirmRequestEvent(run_id=run_id, call=call_dict))
+                confirm_ev = ConfirmRequestEvent(run_id=run_id, call=call_dict)
+                self.event_bus.publish(confirm_ev)
                 confirmed = False
                 if confirmer:
                     confirmed = confirmer(call)
+                elif confirm_ev._response is not None:
+                    confirmed = bool(confirm_ev._response)
 
                 if not confirmed:
                     results.append({

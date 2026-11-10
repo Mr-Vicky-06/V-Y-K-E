@@ -1,4 +1,7 @@
 # VoiceCore configuration (P0). Thresholds are HYPOTHESES - calibrate in M4 (docs/06).
+[runtime]
+threads = 2                  # CPU thread count for engine (1 or 2 avoids P/E core thrashing on Windows)
+
 [audio]
 hotkey = "ctrl+alt+space"   # push-to-talk; the listener must react to this combo only
 max_seconds = 30

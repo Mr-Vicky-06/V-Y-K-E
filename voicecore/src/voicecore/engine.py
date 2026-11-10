@@ -27,11 +27,15 @@ NeedleAgent = cactus.Cactus
 Whistle = cactus.Whistle
 transcribe = cactus.transcribe
 
+# Thread tuning API
+set_threads = getattr(cactus, "set_threads", lambda n: None)
+
 __all__ = [
     "tool",
     "NeedleAgent",
     "Whistle",
     "transcribe",
+    "set_threads",
     "__version__",
 ]
 

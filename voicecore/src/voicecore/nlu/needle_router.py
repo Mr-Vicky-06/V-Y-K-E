@@ -20,21 +20,25 @@ class NeedleRouter(Router):
     ) -> None:
         self.registry = registry
         self.stateless = stateless
+        self.weights = weights
+        self.sync_tools()
 
-        raw_funcs = self.registry.get_functions()
+    def sync_tools(self) -> None:
+        """Synchronize registered tools with the underlying NeedleAgent."""
+        tool_defs = self.registry.list_tools()
         # Ensure functions are decorated with engine @tool if not already
         engine_tools = []
-        for fn in raw_funcs:
-            if not hasattr(fn, "__tool__"):
-                # Decorate with engine_tool
-                decorated = engine_tool(fn)
+        for td in tool_defs:
+            fn = td.fn
+            if not hasattr(fn, "_cactus_tool"):
+                decorated = engine_tool(fn, triggers=td.triggers)
                 engine_tools.append(decorated)
             else:
                 engine_tools.append(fn)
 
         self._agent = NeedleAgent(
             tools=engine_tools,
-            weights=weights,
+            weights=self.weights,
             stateless=self.stateless,
         )
 

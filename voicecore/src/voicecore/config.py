@@ -46,7 +46,13 @@ class DebugConfig:
 
 
 @dataclass
+class RuntimeConfig:
+    threads: int = 2
+
+
+@dataclass
 class VoiceCoreConfig:
+    runtime: RuntimeConfig = field(default_factory=RuntimeConfig)
     audio: AudioConfig = field(default_factory=AudioConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     policy: PolicyConfig = field(default_factory=PolicyConfig)
@@ -62,6 +68,7 @@ class VoiceCoreConfig:
         with file_path.open("rb") as f:
             data = tomllib.load(f)
 
+        runtime = RuntimeConfig(**data.get("runtime", {}))
         audio = AudioConfig(**data.get("audio", {}))
         asr = ASRConfig(**data.get("asr", {}))
         policy = PolicyConfig(**data.get("policy", {}))
@@ -75,5 +82,5 @@ class VoiceCoreConfig:
                 f"must be <= act_threshold ({policy.act_threshold}) within [0.0, 1.0]"
             )
 
-        return cls(audio=audio, asr=asr, policy=policy, search=search, debug=debug)
+        return cls(runtime=runtime, audio=audio, asr=asr, policy=policy, search=search, debug=debug)
 

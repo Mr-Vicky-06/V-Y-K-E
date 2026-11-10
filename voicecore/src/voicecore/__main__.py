@@ -78,12 +78,49 @@ def setup_cli_event_logger(bus: EventBus) -> None:
     bus.subscribe_all(on_event)
 
 
+def tune_threads() -> int:
+    """Benchmark different thread counts to find the optimal CPU setting."""
+    import cactus
+    print("=" * 60)
+    print(" VoiceCore: CPU Thread Tuning Benchmark")
+    print("=" * 60)
+    registry = ToolRegistry()
+    registry.register(open_app, tier="T1", name="open_app", precheck=open_app_precheck)
+    
+    test_counts = [1, 2, 4, 8, 0]
+    results = {}
+    for tc in test_counts:
+        cactus.set_threads(tc)
+        router = NeedleRouter(registry=registry, stateless=True)
+        # warmup
+        router.route("warmup")
+        times = []
+        for _ in range(5):
+            t0 = time.perf_counter()
+            router.route("open notepad")
+            times.append((time.perf_counter() - t0) * 1000.0)
+        router.close()
+        avg_ms = sum(times) / len(times)
+        label = "Auto (0)" if tc == 0 else str(tc)
+        results[tc] = avg_ms
+        print(f"  Threads: {label:8s} | Latency: {avg_ms:6.1f} ms")
+
+    best_t = min(results, key=results.get)
+    best_label = "Auto (0)" if best_t == 0 else str(best_t)
+    print("=" * 60)
+    print(f"Optimal configuration: threads = {best_t} ({best_label}) at {results[best_t]:.1f} ms")
+    print(f"Set 'threads = {best_t}' in [runtime] section of config/voicecore.toml")
+    print("=" * 60)
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="VoiceCore: Offline voice layer for Windows")
     parser.add_argument("--text", type=str, help="Run pipeline with raw text input (no microphone)")
     parser.add_argument("--mic", action="store_true", help="Run push-to-talk microphone mode")
     parser.add_argument("--config", type=str, default="config/voicecore.toml", help="Path to voicecore.toml config")
     parser.add_argument("--dry-run", action="store_true", help="Simulate tool actions without OS side-effects")
+    parser.add_argument("--tune-threads", action="store_true", help="Benchmark CPU thread counts and find optimal setting")
     parser.add_argument(
         "--yes",
         "-y",
@@ -93,6 +130,9 @@ def main() -> int:
     parser.add_argument("--no-log", action="store_true", help="Disable structured event console output")
 
     args = parser.parse_args()
+
+    if args.tune_threads:
+        return tune_threads()
 
     if not args.text and not args.mic:
         parser.print_help()
@@ -110,6 +150,10 @@ def main() -> int:
 
     config = VoiceCoreConfig.from_toml(config_path) if config_path.is_file() else VoiceCoreConfig()
 
+    # Apply configured CPU thread count
+    import cactus
+    cactus.set_threads(config.runtime.threads)
+
     # 2. Tool Registry (M3: open_app, search_files, set_reminder)
     registry = ToolRegistry()
 
@@ -118,12 +162,36 @@ def main() -> int:
             """Open an application by name, for example notepad, calculator, chrome."""
             return open_app(app_name, dry_run=True)
         open_app_dry.__name__ = "open_app"
-        registry.register(open_app_dry, tier="T1", name="open_app", precheck=open_app_precheck)
+        registry.register(
+            open_app_dry,
+            tier="T1",
+            name="open_app",
+            precheck=open_app_precheck,
+            triggers=["open", "launch", "start"],
+        )
     else:
-        registry.register(open_app, tier="T1", name="open_app", precheck=open_app_precheck)
+        registry.register(
+            open_app,
+            tier="T1",
+            name="open_app",
+            precheck=open_app_precheck,
+            triggers=["open", "launch", "start"],
+        )
 
-    registry.register(search_files, tier="T0", name="search_files", precheck=search_files_precheck)
-    registry.register(set_reminder, tier="T1", name="set_reminder", precheck=set_reminder_precheck)
+    registry.register(
+        search_files,
+        tier="T0",
+        name="search_files",
+        precheck=search_files_precheck,
+        triggers=["search", "find", "search files", "find files", "locate"],
+    )
+    registry.register(
+        set_reminder,
+        tier="T1",
+        name="set_reminder",
+        precheck=set_reminder_precheck,
+        triggers=["remind", "reminder", "set a reminder", "schedule"],
+    )
 
     # 3. Policy Gate & EventBus
     gate = PolicyGate(config=config.policy, registry=registry)

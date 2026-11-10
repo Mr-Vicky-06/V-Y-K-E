@@ -56,6 +56,11 @@ class GateEvent(Event):
 @dataclass
 class ConfirmRequestEvent(Event):
     call: Dict[str, Any] = field(default_factory=dict)
+    _response: Optional[bool] = None
+
+    def respond(self, approved: bool) -> None:
+        """Allow host event listener to approve or deny the confirmation."""
+        self._response = approved
 
 
 @dataclass

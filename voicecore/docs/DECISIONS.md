@@ -33,3 +33,34 @@ This file records all architectural deviations, decisions, and resolutions again
 | `cactus_runtime-4.1.0-py3-none-win_amd64.whl` | Hugging Face `Cactus-Compute/cactus` | `300f66c30a67e907686edd35f05b45ce82b78ae9449214f6776df983dcb2178f` | 866,115 |
 | `needle3.cact` | Hugging Face `Cactus-Compute/needle3` (`d6c7d6a2...`) | `c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38` | 35,335,380 |
 | `whistle.cact` | Hugging Face `Cactus-Compute/whistle` (`74111868...`) | `b6e02f048568ac5d01a2042556c658061e699acbc0aa2a1439f52f3d461dffeb` | 16,919,407 |
+
+---
+
+## DECISION-002: CPU Thread Tuning & Runtime Thread Allocation
+
+- **Status:** APPROVED (2026-11-10)
+- **Date:** 2026-11-10
+- **Context:**
+  - On Windows CPUs with asymmetric core architectures (e.g. Intel P/E hybrid cores), the default thread setting (`threads=0`, which spawns threads across all 16 logical cores) causes severe context switching and thread migration across E-cores.
+  - This degraded NLU inference p50 from ~300 ms to 1,760 ms, and ASR p50 from 80 ms to 445 ms.
+- **Resolution:**
+  - Introduce `[runtime] threads = 2` in `config/voicecore.toml` (and `VoiceCoreConfig.runtime.threads`).
+  - Add `python -m voicecore --tune-threads` CLI utility to benchmark latency across thread counts (1, 2, 4, 8, auto).
+  - Verify `cactus.set_threads(N)` lifecycle: the underlying C runtime supports dynamic thread pool reconfiguration either before or after model load. Configuring it prior to model instantiation ensures optimal memory allocations.
+
+---
+
+## DECISION-003: Host Tool Safety and Always-CONFIRM Default
+
+- **Status:** APPROVED (2026-11-10)
+- **Date:** 2026-11-10
+- **Context:**
+  - Level 1 Plugin API allows external applications to register custom tools.
+  - Without guardrails, external tools with high confidence could trigger unauthorized or unvalidated actions without user consent.
+- **Resolution:**
+  - Host-provided tools default to **always-CONFIRM** (Decision.CONFIRM even at 0.99 confidence) unless the host explicitly supplies both:
+    1. An approved risk tier (`T0` read-only or `T1` reversible).
+    2. An explicit precheck callable `precheck(args) -> Tuple[bool, str]`.
+  - The `@tool` decorator attaches `tier`, `precheck`, and passes `triggers` through to Needle to anchor routing grammar.
+  - High-level `VoiceAssistant` facade coordinates `registry`, `policy_gate`, `events`, `ASR`, `Router`, and `push-to-talk`.
+
