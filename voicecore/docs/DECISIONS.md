@@ -79,9 +79,11 @@ This file records all architectural deviations, decisions, and resolutions again
   1. **Network & Binding:**
      - Must bind exclusively to `127.0.0.1` (loopback). Never `0.0.0.0` or external network adapters.
      - Ephemeral port or configurable `--port` (default `8765`).
-  2. **Authentication:**
-     - Ephemeral random per-launch Bearer token passed by host via CLI `--token <UUID4>` or environment variable `VOICECORE_AUTH_TOKEN`.
-     - Reject WebSocket handshake immediately (HTTP 401) if header `Authorization: Bearer <token>` is missing or invalid.
+  2. **Authentication & Origin Protection:**
+     - **No Secrets in CLI Arguments:** Passing tokens via command-line arguments (e.g. `--token`) is strictly forbidden because process argument vectors on Windows are visible to all other local users and processes via `Win32_Process` / Task Manager.
+     - **First-Message Token Authentication:** The host authenticates by delivering an ephemeral per-launch token in the very first WebSocket frame:
+       `{"v": 1, "type": "auth", "token": "<UUID4>"}`. If authentication is not received or validated within 3.0 seconds of socket connection, the connection is forcibly terminated.
+     - **Strict Origin Verification (Anti-CSWSH):** The WebSocket server inspects the HTTP handshake `Origin` header to prevent Cross-Site WebSocket Hijacking from malicious websites opened in the user's browser. Handshakes with non-allowlisted browser origins (e.g. external web origins) are rejected with HTTP 403 Forbidden; only desktop client origins (`tauri://localhost`, `vscode-webview://`, or empty/null desktop client Origin) are permitted.
   3. **Message Protocol:**
      - JSON envelope: `{"v": 1, "type": "<event_or_command>", "payload": { ... }}`
      - **Host -> Core Commands:**

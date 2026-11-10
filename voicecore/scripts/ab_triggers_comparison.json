@@ -1,0 +1,308 @@
+{
+  "total_cases": 115,
+  "correct_a": 72,
+  "correct_b": 72,
+  "changes": [
+    {
+      "utterance": "find my resume file",
+      "calls_a": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "resume file"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "resume file"
+          }
+        }
+      ],
+      "conf_a": 0.0945,
+      "conf_b": 0.1497,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "search my files for schedule",
+      "calls_a": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "schedule"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "schedule"
+          }
+        }
+      ],
+      "conf_a": 0.1776,
+      "conf_b": 0.2419,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "remind me to buy milk tomorrow at 18:00",
+      "calls_a": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Buy milk",
+            "when": "tomorrow at 18:00"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Buy milk",
+            "when": "18:00"
+          }
+        }
+      ],
+      "conf_a": 0.3802,
+      "conf_b": 0.299,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "remind me to take medication in 20 minutes",
+      "calls_a": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Take medication",
+            "when": "20 minutes"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Take medication",
+            "when": "in 20 minutes"
+          }
+        }
+      ],
+      "conf_a": 0.3876,
+      "conf_b": 0.4972,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "set a reminder for dentist appointment tomorrow at 14:00",
+      "calls_a": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Dentist appointment",
+            "when": "tomorrow at 14:00"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "set_reminder",
+          "arguments": {
+            "message": "Dentist appointment",
+            "when": "tomorrow at 14:00"
+          }
+        }
+      ],
+      "conf_a": 0.354,
+      "conf_b": 0.4698,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "open calc and launch paint",
+      "calls_a": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "launch paint"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "calc"
+          }
+        },
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "paint"
+          }
+        }
+      ],
+      "conf_a": 0.3707,
+      "conf_b": 0.2122,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "don't open notepad",
+      "calls_a": [],
+      "calls_b": [],
+      "conf_a": 0.2369,
+      "conf_b": 0.4969,
+      "dec_a": "NO_CALLS",
+      "dec_b": "NO_CALLS",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "do not open paint",
+      "calls_a": [],
+      "calls_b": [],
+      "conf_a": 0.2236,
+      "conf_b": 0.2769,
+      "dec_a": "NO_CALLS",
+      "dec_b": "NO_CALLS",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "do not find files named budget",
+      "calls_a": [],
+      "calls_b": [],
+      "conf_a": 0.1894,
+      "conf_b": 0.4129,
+      "dec_a": "NO_CALLS",
+      "dec_b": "NO_CALLS",
+      "correct_a": true,
+      "correct_b": true
+    },
+    {
+      "utterance": "launch",
+      "calls_a": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "launch"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "Launch"
+          }
+        }
+      ],
+      "conf_a": 0.1175,
+      "conf_b": 0.1711,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": false,
+      "correct_b": false
+    },
+    {
+      "utterance": "open my project proposal",
+      "calls_a": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "project proposal"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "project proposal"
+          }
+        }
+      ],
+      "conf_a": 0.3405,
+      "conf_b": 0.4976,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": false,
+      "correct_b": false
+    },
+    {
+      "utterance": "open document",
+      "calls_a": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "document"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "open_app",
+          "arguments": {
+            "app_name": "document"
+          }
+        }
+      ],
+      "conf_a": 0.2236,
+      "conf_b": 0.1655,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": false,
+      "correct_b": false
+    },
+    {
+      "utterance": "find calc",
+      "calls_a": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "calc"
+          }
+        }
+      ],
+      "calls_b": [
+        {
+          "name": "search_files",
+          "arguments": {
+            "query": "calc"
+          }
+        }
+      ],
+      "conf_a": 0.1371,
+      "conf_b": 0.2145,
+      "dec_a": "REFUSE",
+      "dec_b": "REFUSE",
+      "correct_a": false,
+      "correct_b": false
+    }
+  ]
+}

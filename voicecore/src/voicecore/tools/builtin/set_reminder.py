@@ -304,9 +304,12 @@ def get_default_manager() -> ReminderManager:
 
 
 def set_reminder(message: str, when: str) -> Dict[str, Any]:
-    """Set a reminder with a message at a future date or time.
+    """Set a reminder with a text note at a specified future date or time.
 
-    Supports expressions like 'tomorrow at 10', 'in 20 minutes', or ISO format.
+    Parameters:
+        message: The reminder note or description to remember.
+        when: A natural relative offset, clock time, or ISO-8601 timestamp.
+
     Reminders only fire while VYKE is running.
     """
     mgr = get_default_manager()

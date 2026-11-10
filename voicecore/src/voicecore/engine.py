@@ -12,6 +12,8 @@ from typing import Any, Callable, Dict, List, Optional, Union
 os.environ.setdefault("CACTUS_TELEMETRY", "0")
 os.environ.setdefault("NEEDLE_TELEMETRY", "0")
 os.environ.setdefault("DO_NOT_TRACK", "1")
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
 
 import cactus
 
