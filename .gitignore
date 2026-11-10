@@ -1,0 +1,32 @@
+# Python virtual environments
+.venv/
+voicecore/.venv/
+venv/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Local cache & model downloads (keep models out of git!)
+.cache/
+*.cact
+*.safetensors
+*.bin
+*.whl
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+*.log

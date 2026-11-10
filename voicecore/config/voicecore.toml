@@ -1,0 +1,21 @@
+# VoiceCore configuration (P0). Thresholds are HYPOTHESES - calibrate in M4 (docs/06).
+[audio]
+hotkey = "ctrl+alt+space"   # push-to-talk; the listener must react to this combo only
+max_seconds = 30
+
+[asr]
+language = "en"             # Whistle: en, de, fr, es, it, nl, pl (no Tamil)
+keywords = []               # names/jargon to bias toward, e.g. ["Antigravity", "Chennai"]
+
+[policy]
+act_threshold = 0.80
+confirm_threshold = 0.50
+confirm_timeout_s = 10
+
+[search]
+roots = []                  # absolute folders search_files may read, e.g. ["D:\\Documents"]
+max_results = 10
+
+[debug]
+save_audio = false
+log_jsonl = true
