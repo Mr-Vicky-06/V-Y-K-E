@@ -52,3 +52,4 @@ for p in phrases:
     print(f"  Ungrounded:  {res.ungrounded}")
     print(f"  Gate:        {dec} ({reason})")
     print("-" * 85)
+

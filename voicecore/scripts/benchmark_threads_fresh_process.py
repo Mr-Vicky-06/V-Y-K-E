@@ -173,3 +173,4 @@ if __name__ == "__main__":
         ip = in_process_results[t]
         print(f" {t:<8d} | {fr['nlu_p50']:8.1f} ms     | {fr['tot_p50']:8.1f} ms      | {ip['nlu_p50']:8.1f} ms         | {ip['tot_p50']:8.1f} ms")
     print("=" * 90)
+

@@ -1,3 +1,4 @@
+from pathlib import Path
 import socket
 import pytest
 
@@ -13,6 +14,10 @@ from voicecore.tools.registry import ToolRegistry
 @pytest.mark.real_model
 def test_pipeline_runs_100_percent_offline():
     """Verify that after initial setup, no network calls are made during audio pipeline runs."""
+    pkg_root = Path(__file__).resolve().parents[2]
+    config_path = pkg_root / "config" / "voicecore.toml"
+    audio_path = pkg_root / "tests" / "test_data" / "audio" / "open_notepad_16k.wav"
+
     orig_connect = socket.socket.connect
 
     def blocked_connect(*args, **kwargs):
@@ -20,7 +25,7 @@ def test_pipeline_runs_100_percent_offline():
 
     socket.socket.connect = blocked_connect
     try:
-        config = VoiceCoreConfig.from_toml("config/voicecore.toml")
+        config = VoiceCoreConfig.from_toml(config_path)
         registry = ToolRegistry()
 
         def open_app_dry(app_name: str) -> dict:
@@ -41,9 +46,10 @@ def test_pipeline_runs_100_percent_offline():
             config=config,
         )
 
-        res = assistant.run_audio("tests/test_data/audio/open_notepad_16k.wav")
+        res = assistant.run_audio(audio_path)
         assert len(res) == 1
         assert res[0]["status"] == "executed"
         assert res[0]["call"]["name"] == "open_app"
     finally:
         socket.socket.connect = orig_connect
+
