@@ -10,6 +10,7 @@ import time
 import wave
 
 # Privacy: must be set BEFORE the engine loads.
+os.environ.setdefault("CACTUS_TELEMETRY", "0")
 os.environ.setdefault("NEEDLE_TELEMETRY", "0")
 os.environ.setdefault("DO_NOT_TRACK", "1")
 
@@ -37,15 +38,20 @@ def check_python():
     return sys.version.split()[0]
 
 
-@step("import needle")
+@step("import engine (cactus / needle)")
 def check_import():
-    import needle
-    return f"version={getattr(needle, '__version__', '?')} file={needle.__file__}"
+    try:
+        import cactus as engine
+        name = "cactus"
+    except ImportError:
+        import needle as engine
+        name = "needle"
+    return f"package={name} version={getattr(engine, '__version__', '?')} file={engine.__file__}"
 
 
 @step("telemetry env vars set")
 def check_env():
-    assert os.environ.get("NEEDLE_TELEMETRY") == "0"
+    assert os.environ.get("CACTUS_TELEMETRY") == "0" or os.environ.get("NEEDLE_TELEMETRY") == "0"
     assert os.environ.get("DO_NOT_TRACK") == "1"
 
 
@@ -69,11 +75,14 @@ def _silence_wav(path, seconds=1.0, rate=16000):
 
 @step("Whistle: silence -> empty transcript (engine + weights load)")
 def check_whistle():
-    import needle
+    try:
+        import cactus as engine
+    except ImportError:
+        import needle as engine
     with tempfile.TemporaryDirectory() as d:
         p = os.path.join(d, "silence.wav")
         _silence_wav(p)
-        out = needle.transcribe(p)
+        out = engine.transcribe(p)
     assert isinstance(out, dict) and "text" in out, f"unexpected return: {out!r}"
     assert out["text"].strip() == "", f"expected empty transcript, got {out['text']!r}"
     return f"keys={sorted(out)}"
@@ -82,17 +91,20 @@ def check_whistle():
 @step("Needle: dummy tool call (prints raw return shape - needed for spike S2)")
 def check_needle():
     import json
-    import needle
+    try:
+        import cactus as engine
+    except ImportError:
+        import needle as engine
 
     calls_made = []
 
-    @needle.tool
+    @engine.tool
     def get_weather(city: str):
         "Get the current weather for a city."
         calls_made.append(city)
         return {"city": city, "temp_c": 27, "sky": "clear"}
 
-    with needle.Needle(tools=[get_weather]) as agent:
+    with engine.Needle(tools=[get_weather]) as agent:
         run_out = agent.run("what's the weather in Lagos?")
         print("   run() ->", json.dumps(run_out, default=str)[:600])
         agent.reset()
@@ -100,7 +112,9 @@ def check_needle():
         print("   complete() ->", json.dumps(comp_out, default=str)[:600])
     print("   tool executed by run()/complete() (count):", len(calls_made))
     assert isinstance(run_out, dict)
-    return f"run keys={sorted(run_out)}; complete keys={sorted(comp_out) if isinstance(comp_out, dict) else type(comp_out)}"
+    assert isinstance(comp_out, dict)
+    assert len(calls_made) == 1, f"expected complete() not to execute tool, count={len(calls_made)}"
+    return f"run keys={sorted(run_out)}; complete keys={sorted(comp_out)}"
 
 
 if __name__ == "__main__":

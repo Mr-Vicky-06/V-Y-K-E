@@ -23,3 +23,4 @@ VYKE is an offline, privacy-first voice layer for Windows that turns speech into
 - [Tool Specification](voicecore/docs/04_TOOL_SPEC.md)
 - [Security Guardrails](voicecore/docs/06_SECURITY_GUARDRAILS.md)
 - [Progress Log](voicecore/docs/PROGRESS.md)
+

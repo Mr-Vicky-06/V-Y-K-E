@@ -1,5 +1,7 @@
-# VoiceCore dev setup — Windows PowerShell. Run from the project root:  .\scripts\setup.ps1
+﻿# VoiceCore dev setup — Windows PowerShell. Run from project root or voicecore folder: .\scripts\setup.ps1
 $ErrorActionPreference = "Stop"
+
+if (Test-Path .\voicecore) { Set-Location .\voicecore }
 
 # 1. Python 3.11+ check
 $ver = & python -c "import sys; print('%d.%d' % sys.version_info[:2])"
@@ -11,11 +13,14 @@ if (-not (Test-Path .venv)) { python -m venv .venv }
 python -m pip install --upgrade pip
 
 # 3. Dependencies (mic extra = numpy, soxr, sounddevice)
-pip install "cactus-needle[mic]" pytest pynput
+pip install "cactus-compute[mic]" pytest pynput
+pip install -e .
 
 # 4. Privacy: disable telemetry for this session AND for future sessions
+$env:CACTUS_TELEMETRY = "0"
 $env:NEEDLE_TELEMETRY = "0"
 $env:DO_NOT_TRACK = "1"
+[Environment]::SetEnvironmentVariable("CACTUS_TELEMETRY", "0", "User")
 [Environment]::SetEnvironmentVariable("NEEDLE_TELEMETRY", "0", "User")
 [Environment]::SetEnvironmentVariable("DO_NOT_TRACK", "1", "User")
 

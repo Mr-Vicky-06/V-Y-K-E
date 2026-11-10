@@ -9,7 +9,7 @@ description = "Offline voice layer for Windows"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "cactus-needle[mic]",
+    "cactus-compute[mic]",
     "pynput",
 ]
 
@@ -25,4 +25,3 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-q"
-
