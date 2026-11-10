@@ -17,6 +17,7 @@ class ToolDefinition:
     tier: str  # T0, T1, T2
     fn: Callable[..., Any]
     parameters: Dict[str, Any] = field(default_factory=dict)
+    precheck: Optional[Callable[[Dict[str, Any]], tuple[bool, str]]] = None
 
 
 class ToolRegistry:
@@ -31,6 +32,7 @@ class ToolRegistry:
         tier: str = "T1",
         name: Optional[str] = None,
         description: Optional[str] = None,
+        precheck: Optional[Callable[[Dict[str, Any]], tuple[bool, str]]] = None,
     ) -> ToolDefinition:
         """Register a Python callable as an authorized VoiceCore tool."""
         if tier not in VALID_TIERS:
@@ -65,6 +67,7 @@ class ToolRegistry:
             tier=tier,
             fn=fn,
             parameters=params,
+            precheck=precheck,
         )
         self._tools[tool_name] = definition
         return definition

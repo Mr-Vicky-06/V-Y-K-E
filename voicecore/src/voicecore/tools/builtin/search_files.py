@@ -239,3 +239,29 @@ def search_files(
         "query": query,
         "searched_roots": [str(r) for r in resolved_roots],
     }
+
+
+def search_files_precheck(args: Dict[str, Any], roots: Optional[Sequence[str]] = None) -> tuple[bool, str]:
+    """Pre-check for search_files: roots must be configured and query non-empty."""
+    query = args.get("query")
+    if not query or not isinstance(query, str) or not query.strip():
+        return False, "Query must be a non-empty string."
+
+    effective_roots = list(roots) if roots is not None else load_default_roots()
+    if not effective_roots:
+        return False, "No search root directories configured in voicecore.toml."
+
+    # Check if at least one root directory actually exists
+    valid = False
+    for r in effective_roots:
+        try:
+            rp = Path(r).resolve()
+            if rp.is_dir():
+                valid = True
+                break
+        except (OSError, ValueError):
+            continue
+
+    if not valid:
+        return False, "None of the configured search roots exist as directories on disk."
+    return True, ""

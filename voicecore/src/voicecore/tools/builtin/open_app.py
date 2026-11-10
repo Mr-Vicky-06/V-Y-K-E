@@ -92,3 +92,16 @@ def open_app(
             "error": "launch_failed",
             "message": f"Failed to launch '{executable}': {e}",
         }
+
+
+def open_app_precheck(args: Dict[str, Any], allowlist: Optional[Dict[str, str]] = None) -> tuple[bool, str]:
+    """Pre-check for open_app: argument app_name must resolve in the allowlist."""
+    app_name = args.get("app_name")
+    if not app_name or not isinstance(app_name, str) or not app_name.strip():
+        return False, "App name must be a non-empty string."
+
+    normalized = app_name.lower().strip()
+    mapping = allowlist if allowlist is not None else load_allowlist()
+    if normalized not in mapping:
+        return False, f"Application '{app_name}' is not in the authorized allowlist."
+    return True, ""

@@ -76,7 +76,22 @@ class PolicyGate:
                 reason="Tier T2 (privileged/destructive) operations are forbidden in P0",
             )
 
-        # 5. Confidence threshold gating for T0 and T1
+        # 5. Pre-check independent of confidence (runs before ACT or CONFIRM)
+        if tool_def.precheck is not None:
+            try:
+                ok, precheck_reason = tool_def.precheck(call.arguments)
+                if not ok:
+                    return PolicyDecision(
+                        decision=Decision.REFUSE,
+                        reason=f"Pre-check failed: {precheck_reason}",
+                    )
+            except Exception as e:
+                return PolicyDecision(
+                    decision=Decision.REFUSE,
+                    reason=f"Pre-check error: {e}",
+                )
+
+        # 6. Confidence threshold gating for T0 and T1
         if confidence < self.config.confirm_threshold:
             return PolicyDecision(
                 decision=Decision.REFUSE,

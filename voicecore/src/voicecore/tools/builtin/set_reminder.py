@@ -311,3 +311,29 @@ def set_reminder(message: str, when: str) -> Dict[str, Any]:
     """
     mgr = get_default_manager()
     return mgr.set_reminder(message=message, when=when)
+
+
+def set_reminder_precheck(
+    args: Dict[str, Any],
+    reference_time: Optional[datetime.datetime] = None,
+) -> tuple[bool, str]:
+    """Pre-check for set_reminder: when must parse to a future time, and message non-empty."""
+    message = args.get("message")
+    if not message or not isinstance(message, str) or not message.strip():
+        return False, "Reminder message cannot be empty."
+
+    when = args.get("when")
+    if not when or not isinstance(when, str) or not when.strip():
+        return False, "Reminder time expression ('when') cannot be empty."
+
+    try:
+        target_dt = parse_target_time(when, reference_time=reference_time)
+    except ValueError as ve:
+        return False, f"Invalid time expression: {ve}"
+
+    now = reference_time or datetime.datetime.now(datetime.timezone.utc).astimezone()
+    if target_dt <= now:
+        return False, f"Target time '{target_dt.isoformat()}' is in the past."
+
+    return True, ""
+

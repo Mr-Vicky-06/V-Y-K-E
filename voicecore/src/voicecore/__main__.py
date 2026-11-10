@@ -29,6 +29,7 @@ from voicecore.events import (
     ListeningStartedEvent,
     ListeningStoppedEvent,
     NoSpeechEvent,
+    ReminderDueEvent,
     RouteEvent,
     ToolResultEvent,
     TranscriptEvent,
@@ -36,9 +37,9 @@ from voicecore.events import (
 from voicecore.nlu.needle_router import NeedleRouter
 from voicecore.policy.gate import PolicyGate
 from voicecore.runtime.assistant import Assistant, State
-from voicecore.tools.builtin.open_app import open_app
-from voicecore.tools.builtin.search_files import search_files
-from voicecore.tools.builtin.set_reminder import get_default_manager, set_reminder
+from voicecore.tools.builtin.open_app import open_app, open_app_precheck
+from voicecore.tools.builtin.search_files import search_files, search_files_precheck
+from voicecore.tools.builtin.set_reminder import get_default_manager, set_reminder, set_reminder_precheck
 from voicecore.tools.registry import ToolRegistry
 
 logger = logging.getLogger("voicecore")
@@ -65,6 +66,8 @@ def setup_cli_event_logger(bus: EventBus) -> None:
             print(f"[EVENT:CONFIRM_REQUEST] call={e.call}")
         elif isinstance(e, ToolResultEvent):
             print(f"[EVENT:TOOL_RESULT] call={e.call.get('name')} ok={e.result.get('ok')} exec_ms={e.ms:.1f}ms")
+        elif isinstance(e, ReminderDueEvent):
+            print(f"\n[EVENT:REMINDER_DUE] *** ALARM: '{e.message}' (scheduled for {e.when}) ***")
         elif isinstance(e, NoSpeechEvent):
             print("[EVENT:NO_SPEECH] Empty transcript / silence detected (returning to IDLE)")
         elif isinstance(e, ErrorEvent):
@@ -115,12 +118,12 @@ def main() -> int:
             """Open an application by name, for example notepad, calculator, chrome."""
             return open_app(app_name, dry_run=True)
         open_app_dry.__name__ = "open_app"
-        registry.register(open_app_dry, tier="T1", name="open_app")
+        registry.register(open_app_dry, tier="T1", name="open_app", precheck=open_app_precheck)
     else:
-        registry.register(open_app, tier="T1", name="open_app")
+        registry.register(open_app, tier="T1", name="open_app", precheck=open_app_precheck)
 
-    registry.register(search_files, tier="T0", name="search_files")
-    registry.register(set_reminder, tier="T1", name="set_reminder")
+    registry.register(search_files, tier="T0", name="search_files", precheck=search_files_precheck)
+    registry.register(set_reminder, tier="T1", name="set_reminder", precheck=set_reminder_precheck)
 
     # 3. Policy Gate & EventBus
     gate = PolicyGate(config=config.policy, registry=registry)
@@ -144,11 +147,25 @@ def main() -> int:
     # Startup warm-up inference (pre-initializes weights and buffers)
     assistant.warmup()
 
-    # Startup reload of pending reminders
+    # Startup reload of pending reminders & wire alarm events
     reminder_mgr = get_default_manager()
+    reminder_mgr.on_due = lambda rem: event_bus.publish(
+        ReminderDueEvent(run_id="scheduler", reminder_id=str(rem.id), message=rem.message, when=rem.target_time_iso)
+    )
     reloaded = reminder_mgr.reload_pending()
-    if reloaded["scheduled"] > 0 or reloaded["missed"] > 0:
-        print(f"[STARTUP] Reminders: {reloaded['scheduled']} pending scheduled, {reloaded['missed']} missed marked.")
+    if reloaded["missed"] > 0:
+        print(f"\n[STARTUP NOTICE] *** {reloaded['missed']} reminder(s) were missed while VYKE was not running: ***")
+        try:
+            import sqlite3
+            with sqlite3.connect(str(reminder_mgr.db_path)) as conn:
+                conn.row_factory = sqlite3.Row
+                rows = conn.execute("SELECT message, target_time_iso FROM reminders WHERE status = 'missed' ORDER BY id DESC LIMIT 5").fetchall()
+                for r in rows:
+                    print(f"  - '{r['message']}' (was scheduled for {r['target_time_iso']})")
+        except Exception:
+            pass
+    if reloaded["scheduled"] > 0:
+        print(f"[STARTUP] Rescheduled {reloaded['scheduled']} active future reminder(s).")
 
     def cli_confirmer(call) -> bool:
         tier = registry.get_tier(call.name)

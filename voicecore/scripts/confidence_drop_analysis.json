@@ -1,0 +1,420 @@
+[
+  {
+    "utterance": "open notepad",
+    "step1_open_app_alone": {
+      "confidence": 0.8195,
+      "calls": "open_app({'app_name': 'Notepad'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.6124,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.679,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.861,
+      "calls": "open_app_triggered({'app_name': 'notepad'})"
+    }
+  },
+  {
+    "utterance": "launch calculator",
+    "step1_open_app_alone": {
+      "confidence": 0.5084,
+      "calls": "open_app({'app_name': 'calculator'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.5988,
+      "calls": "open_app({'app_name': 'calculator'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.4349,
+      "calls": "open_app({'app_name': 'calculator'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.6392,
+      "calls": "open_app_triggered({'app_name': 'calculator'})"
+    }
+  },
+  {
+    "utterance": "search files for quarterly report",
+    "step1_open_app_alone": {
+      "confidence": 0.9446,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.4135,
+      "calls": "search_files({'query': 'quarterly report'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.3476,
+      "calls": "search_files({'query': 'quarterly report'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.49,
+      "calls": "search_files_triggered({'query': 'quarterly report'})"
+    }
+  },
+  {
+    "utterance": "find files named budget",
+    "step1_open_app_alone": {
+      "confidence": 0.9331,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.3505,
+      "calls": "search_files({'query': 'budget'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.3633,
+      "calls": "search_files({'query': 'budget'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.5089,
+      "calls": "search_files_triggered({'query': 'budget'})"
+    }
+  },
+  {
+    "utterance": "set a reminder to call mom tomorrow at 10:00",
+    "step1_open_app_alone": {
+      "confidence": 0.9235,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.7684,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.5501,
+      "calls": "set_reminder({'message': 'Call mom', 'when': 'tomorrow at 10'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.5258,
+      "calls": "set_reminder_triggered({'message': 'Call mom', 'when': 'tomorrow at 10:00'})"
+    }
+  },
+  {
+    "utterance": "remind me to buy milk tomorrow at 18:00",
+    "step1_open_app_alone": {
+      "confidence": 0.8861,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.7519,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.6059,
+      "calls": "set_reminder({'message': 'Buy milk', 'when': 'tomorrow at 18:00'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.3227,
+      "calls": "set_reminder_triggered({'message': 'Buy milk', 'when': 'tomorrow at 18:00'})"
+    }
+  },
+  {
+    "utterance": "don't open notepad",
+    "step1_open_app_alone": {
+      "confidence": 0.4141,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.3063,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.3973,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.5056,
+      "calls": "[]"
+    }
+  },
+  {
+    "utterance": "do not set a reminder for 5pm",
+    "step1_open_app_alone": {
+      "confidence": 0.8783,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.765,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0188,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0208,
+      "calls": "[]"
+    }
+  },
+  {
+    "utterance": "open that app we used yesterday",
+    "step1_open_app_alone": {
+      "confidence": 0.0331,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.0666,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0288,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0352,
+      "calls": "open_app_triggered({'app_name': 'we used yesterday'})"
+    }
+  },
+  {
+    "utterance": "find the file about that thing",
+    "step1_open_app_alone": {
+      "confidence": 0.8508,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.0324,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0391,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0422,
+      "calls": "[]"
+    }
+  },
+  {
+    "utterance": "open notepad and open calculator",
+    "step1_open_app_alone": {
+      "confidence": 0.8005,
+      "calls": "open_app({'app_name': 'notepad'}), open_app({'app_name': 'calculator'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.7002,
+      "calls": "open_app({'app_name': 'notepad'}), open_app({'app_name': 'calculator'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.7742,
+      "calls": "open_app({'app_name': 'notepad'}), open_app({'app_name': 'calculator'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.8484,
+      "calls": "open_app_triggered({'app_name': 'notepad'}), open_app_triggered({'app_name': 'calculator'})"
+    }
+  },
+  {
+    "utterance": "what is the capital of France?",
+    "step1_open_app_alone": {
+      "confidence": 0.9321,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.7914,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.8698,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.9308,
+      "calls": "[]"
+    }
+  },
+  {
+    "utterance": "tell me a funny joke",
+    "step1_open_app_alone": {
+      "confidence": 0.0281,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.0542,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0692,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.097,
+      "calls": "[]"
+    }
+  },
+  {
+    "utterance": "open",
+    "step1_open_app_alone": {
+      "confidence": 0.1159,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.0365,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0445,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0412,
+      "calls": "open_app_triggered({'app_name': 'notepad'})"
+    }
+  },
+  {
+    "utterance": "set a reminder",
+    "step1_open_app_alone": {
+      "confidence": 0.9068,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.7522,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0098,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0234,
+      "calls": "set_reminder_triggered({'message': 'Reminder', 'when': 'now'})"
+    }
+  },
+  {
+    "utterance": "search files",
+    "step1_open_app_alone": {
+      "confidence": 0.9481,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.0307,
+      "calls": "[]"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0233,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0982,
+      "calls": "search_files_triggered({'query': 'search files'})"
+    }
+  },
+  {
+    "utterance": "open the quarterly report",
+    "step1_open_app_alone": {
+      "confidence": 0.5904,
+      "calls": "open_app({'app_name': 'quarterly report'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.5258,
+      "calls": "open_app({'app_name': 'quarterly report'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.4924,
+      "calls": "open_app({'app_name': 'quarterly report'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.5288,
+      "calls": "open_app_triggered({'app_name': 'quarterly report'})"
+    }
+  },
+  {
+    "utterance": "open budget",
+    "step1_open_app_alone": {
+      "confidence": 0.4122,
+      "calls": "open_app({'app_name': 'budget'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.3397,
+      "calls": "search_files({'query': 'budget'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.3691,
+      "calls": "open_app({'app_name': 'budget'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.466,
+      "calls": "open_app_triggered({'app_name': 'budget'})"
+    }
+  },
+  {
+    "utterance": "open my project proposal",
+    "step1_open_app_alone": {
+      "confidence": 0.4704,
+      "calls": "open_app({'app_name': 'project proposal'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.4746,
+      "calls": "open_app({'app_name': 'project proposal'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.4307,
+      "calls": "open_app({'app_name': 'project proposal'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.4724,
+      "calls": "open_app_triggered({'app_name': 'project proposal'})"
+    }
+  },
+  {
+    "utterance": "find notepad",
+    "step1_open_app_alone": {
+      "confidence": 0.4251,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.5734,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.4248,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.3628,
+      "calls": "search_files_triggered({'query': 'notepad'})"
+    }
+  },
+  {
+    "utterance": "search for calculator",
+    "step1_open_app_alone": {
+      "confidence": 0.3323,
+      "calls": "open_app({'app_name': 'calculator'})"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.2867,
+      "calls": "search_files({'query': 'calculator'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.3025,
+      "calls": "search_files({'query': 'calculator'})"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.7414,
+      "calls": "search_files_triggered({'query': 'calculator'})"
+    }
+  },
+  {
+    "utterance": "remind me about notepad",
+    "step1_open_app_alone": {
+      "confidence": 0.924,
+      "calls": "[]"
+    },
+    "step2_plus_search_files": {
+      "confidence": 0.1613,
+      "calls": "open_app({'app_name': 'notepad'})"
+    },
+    "step3_plus_set_reminder": {
+      "confidence": 0.0225,
+      "calls": "[]"
+    },
+    "step4_with_triggers": {
+      "confidence": 0.0591,
+      "calls": "set_reminder_triggered({'message': 'Notepad', 'when': ''})"
+    }
+  }
+]

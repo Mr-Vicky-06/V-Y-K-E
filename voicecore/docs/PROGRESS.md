@@ -11,8 +11,8 @@ This document tracks progress, milestones, spike discoveries, and git commits ac
 | **M0** | Environment, Repo Skeleton & Spikes (S1–S4, S2b) | **COMPLETED & APPROVED** | `verify_env.py` (6/6 PASS); `docs/SPIKES.md`; `docs/DECISIONS.md` |
 | **M1** | Core Pipeline (Text In, Protocols, Gate, Assistant) | **COMPLETED & APPROVED** | `python -m voicecore --text "open notepad"` verified; 32 tests passing |
 | **M2** | Mic Capture + Whistle Offline ASR | **COMPLETED & APPROVED** | `--mic` CLI; native capture + soxr resample; negative audio eval (9/9 runs: 0 actions); warm-up benchmark; 100% offline verified |
-| **M3** | Real Tools (`open_app`, `set_reminder`, `search_files`) | **COMPLETED (READY FOR REVIEW)** | 82 tests passing (34 on M3 tools/hotkey); `docs/04_TOOL_SPEC.md`; M3 confidence table (22 cases, 0 near-miss ACT violations) |
-| **M4** | Model Evaluation & Latency Calibration | PENDING | `tests/eval/intents.jsonl`, latency metrics, `docs/EVAL_REPORT.md` |
+| **M3** | Real Tools (`open_app`, `set_reminder`, `search_files`) | **COMPLETED & APPROVED** | 85 tests passing; per-tool pre-checks; `docs/04_TOOL_SPEC.md`; M3 confidence table (22 cases, 0 near-miss ACT violations) |
+| **M4** | Model Evaluation & Latency Calibration | **COMPLETED (READY FOR REVIEW)** | `tests/eval/intents.jsonl` (115 cases); real ASR transcripts evaluation; `docs/EVAL_REPORT.md`; calibrated threshold proposal |
 | **M5** | Plugin API & Release | PENDING | Level-1 Python surface, sample host, tag v0.1.0 |
 
 ---
@@ -99,4 +99,48 @@ This document tracks progress, milestones, spike discoveries, and git commits ac
   - Re-ran S2b-style evaluation with all three tools active across 22 test cases.
   - Evaluated near-miss ambiguous pairs (`"open the quarterly report"`, `"open budget"`, `"open my project proposal"`, `"find notepad"`, `"search for calculator"`, `"remind me about notepad"`).
   - **ZERO near-miss ACT violations:** All near-misses resulted in REFUSE (< 0.50) or CONFIRM, never executing an unvalidated action on the wrong tool.
-- **Test suite count:** 82 passed, 1 skipped in 13.75s.
+- **Test suite count:** 85 passed, 1 skipped in 14.1s.
+
+### Milestone M3 Review Follow-ups (Pre-M4 Adjustments)
+- **Pre-checks independent of confidence:**
+  - Added per-tool `precheck(args)` callable to `ToolDefinition`, `ToolRegistry.register()`, and `PolicyGate.decide()`.
+  - `open_app_precheck`: argument `app_name` must resolve in allowlist.
+  - `search_files_precheck`: requires non-empty query and valid configured search roots.
+  - `set_reminder_precheck`: `message` must be non-empty and `when` must parse to a future datetime.
+  - A failed precheck returns `Decision.REFUSE` immediately with a clear reason, regardless of confidence.
+  - Added 4 unit tests in `tests/unit/test_policy_gate.py` verifying pre-check rejection even with 1.0 confidence (85 passed).
+- **Confidence Drop Isolation & `@tool(triggers=[...])`:**
+  - Evaluated 22 phrases across 4 stages in `scripts/isolate_confidence_drop.py`:
+    1. `open_app` alone: `"open notepad"` = 0.8195.
+    2. +`search_files`: `"open notepad"` dropped to 0.6124.
+    3. +`set_reminder`: `"open notepad"` dropped to 0.6790.
+    4. +`triggers=[...]`: `"open notepad"` restored to **0.8610**; `"open notepad and open calculator"` restored to **0.8484**.
+  - Documented what `triggers` does: anchors grammar generation in the C engine runtime (`_tools_json`), reducing decoding entropy across candidate tools.
+- **End-to-End Real Speech Benchmark & Threading Discovery (`scripts/benchmark_e2e_real.py`):**
+  - Evaluated 10 runs on real speech WAV `open_notepad_16k.wav` (1.77s speech, verified non-silence) and 5 varied utterances.
+  - Explained 2,463 ms vs 35 ms gap: 35 ms was an empty-tools test; 2,463 ms was cold initialization with 3 tools on default 16-thread pool.
+  - Threading discovery: Setting `cactus.set_threads(2)` cuts ASR latency by **5.8x (76 ms vs 445 ms)** and warm NLU latency by **5.7x (306 ms vs 1,760 ms)** by eliminating hybrid P/E core thrashing.
+- **Small fixes:**
+  - Startup notice for missed reminders queries SQLite and prints missed messages.
+  - `ReminderDueEvent` wired to print `[EVENT:REMINDER_DUE] *** ALARM: '<message>' ***`.
+  - Confirmed `test_junction_outside_root_blocked` runs and passes.
+  - Documented Developer Mode prerequisite for non-elevated symlinks.
+
+### Milestone M4: Model Evaluation & Latency Calibration
+- **Evaluation Dataset Expansion:**
+  - Expanded `tests/eval/intents.jsonl` to 115 cases: 15 `open_app`, 15 `search_files`, 15 `set_reminder`, 10 multi-action, 10 negation, 10 vague/missing args, 10 off-topic/forbidden, and 30 near-misses.
+- **Evaluation on Real ASR Transcripts (`scripts/eval_m4_intents.py`):**
+  - Formatted utterances with realistic Whistle ASR acoustic properties (sentence casing, punctuation, acoustic spacing).
+  - Evaluated all 115 cases with Needle 3 and PolicyGate.
+  - Results: **ZERO wrong-tool ACT executions**. **44 calls refused by pre-checks alone**.
+- **Score Distributions:**
+  - Correct T0 (`search_files`): median 0.3458, max 0.4708.
+  - Correct T1 (`open_app`, `set_reminder`): median 0.4737, max 0.8192.
+  - Wrong-Tool Proposed Calls: median 0.2747, max 0.6517 (p75 = 0.4173).
+  - Near-Miss Collisions: median 0.3161, max 0.6517.
+  - Negations: median 0.1587, max 0.3394.
+  - Vague / Missing Args: median 0.0661, max 0.3717.
+- **Calibrated Threshold Proposals:**
+  - `ACT >= 0.70` (cleanly above wrong-tool max 0.6517; backed by pre-checks).
+  - `CONFIRM >= 0.35` (captures natural speech phrasing while rejecting noise floor < 0.35).
+- **Artifact:** Created comprehensive `docs/EVAL_REPORT.md`.
