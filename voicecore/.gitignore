@@ -16,5 +16,6 @@ htmlcov/
 # Audio evaluation recordings (keep private user audio out of git!)
 tests/test_data/audio/recorded_eval/
 tests/test_data/audio/ambient_eval/
+tests/eval/audio/
 
 

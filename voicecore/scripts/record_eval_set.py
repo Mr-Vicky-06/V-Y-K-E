@@ -152,9 +152,24 @@ def calculate_wer(reference: str, hypothesis: str) -> Tuple[float, int, int]:
     return wer, edits, len(ref_words)
 
 
-def record_dataset(output_dir: Path) -> None:
+def record_dataset(output_dir: Path, reset: bool = False) -> None:
     """Prompt user interactively to record the 40-phrase dataset."""
     output_dir.mkdir(parents=True, exist_ok=True)
+    labels_file = output_dir / "labels.json"
+
+    if reset:
+        for f in output_dir.glob("*.wav"):
+            try:
+                f.unlink()
+            except OSError:
+                pass
+        if labels_file.is_file():
+            try:
+                labels_file.unlink()
+            except OSError:
+                pass
+        print(f"[RESET] Cleared all existing recordings and labels in {output_dir}")
+
     capture = AudioCapture()
 
     print("=" * 80)
@@ -167,15 +182,15 @@ def record_dataset(output_dir: Path) -> None:
     print("   1. Read the phrase shown on screen.")
     print("   2. Press ENTER to start recording.")
     print("   3. Speak clearly at normal pace.")
-    print("   4. Press ENTER to stop recording and proceed to the next phrase.")
+    print("   4. Press ENTER to stop recording.")
+    print("   5. Press ENTER to keep, or type 'r' to re-record.")
     print("   Type 'skip' to skip, or 'quit' to save and exit.")
     print("=" * 80)
 
     labels = []
-    labels_file = output_dir / "labels.json"
 
     # Load existing labels if resuming
-    if labels_file.is_file():
+    if not reset and labels_file.is_file():
         try:
             with labels_file.open("r", encoding="utf-8") as f:
                 labels = json.load(f)
@@ -203,25 +218,34 @@ def record_dataset(output_dir: Path) -> None:
         if user_input == "skip":
             continue
 
-        # Start recording
-        print("  [RECORDING...] Speak now. Press ENTER when finished.")
-        capture.start_capture()
-        t_start = time.perf_counter()
+        while True:
+            # Start recording
+            print("  [RECORDING...] Speak now. Press ENTER when finished.")
+            capture.start_capture()
+            t_start = time.perf_counter()
 
-        input()  # Wait for user to finish speaking
-        duration = time.perf_counter() - t_start
-        samples = capture.stop_capture()
+            input()  # Wait for user to finish speaking
+            duration = time.perf_counter() - t_start
+            samples = capture.stop_capture()
 
-        # Save to 16 kHz WAV
-        import numpy as np
-        int16_samples = (np.clip(samples, -1.0, 1.0) * 32767).astype(np.int16)
-        with wave.open(str(wav_path), "wb") as w:
-            w.setnchannels(1)
-            w.setsampwidth(2)
-            w.setframerate(16000)
-            w.writeframes(int16_samples.tobytes())
+            # Save to 16 kHz WAV
+            import numpy as np
+            int16_samples = (np.clip(samples, -1.0, 1.0) * 32767).astype(np.int16)
+            with wave.open(str(wav_path), "wb") as w:
+                w.setnchannels(1)
+                w.setsampwidth(2)
+                w.setframerate(16000)
+                w.writeframes(int16_samples.tobytes())
 
-        print(f"  [SAVED] {wav_filename} ({duration:.1f}s, {len(samples)} samples)")
+            print(f"  [RECORDED] {wav_filename} ({duration:.1f}s, {len(samples)} samples)")
+
+            if duration < 0.3:
+                print("  [NOTICE] Recording was very short (< 0.3s).")
+
+            review = input("  Press ENTER to accept (or 'r' to re-record): ").strip().lower()
+            if review != "r":
+                break
+            print("  Retrying phrase...")
 
         record_entry = {
             "id": p_id,
@@ -243,6 +267,7 @@ def record_dataset(output_dir: Path) -> None:
     print(f"Labels saved to: {labels_file}")
     print("Run `python scripts/record_eval_set.py --eval` to evaluate the recordings.")
     print("=" * 80)
+
 
 
 def evaluate_dataset(recordings_dir: Path) -> int:
@@ -608,6 +633,7 @@ def main():
     parser.add_argument("--eval", action="store_true", help="Run WER and routing evaluation on saved recordings")
     parser.add_argument("--ambient", action="store_true", help="Record or evaluate 10s ambient negative clips (typing, music, talking)")
     parser.add_argument("--generate-samples", action="store_true", help="Generate synthetic ambient audio clips for testing")
+    parser.add_argument("--reset", action="store_true", help="Clear all existing recordings and labels to start fresh from phrase 1")
     parser.add_argument("--dir", type=str, default="", help="Recordings directory (default: user_recordings or ambient_eval)")
     args = parser.parse_args()
 
@@ -632,8 +658,9 @@ def main():
     if args.eval:
         return evaluate_dataset(recordings_dir)
     else:
-        record_dataset(recordings_dir)
+        record_dataset(recordings_dir, reset=args.reset)
         return 0
+
 
 
 
