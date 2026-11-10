@@ -191,3 +191,4 @@ def test_host_confirm_request_respond():
     assert len(results_denied) == 1
     assert results_denied[0]["status"] == "refused"
     assert executed == []
+

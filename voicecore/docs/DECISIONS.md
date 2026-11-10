@@ -64,3 +64,19 @@ This file records all architectural deviations, decisions, and resolutions again
   - The `@tool` decorator attaches `tier`, `precheck`, and passes `triggers` through to Needle to anchor routing grammar.
   - High-level `VoiceAssistant` facade coordinates `registry`, `policy_gate`, `events`, `ASR`, `Router`, and `push-to-talk`.
 
+---
+
+## DECISION-004: Level-2 (WebSocket Sidecar) Assessment and Roadmap
+
+- **Status:** DEFERRED to P1 (Level-1 Python Library is P0 primary)
+- **Date:** 2026-11-10
+- **Context:**
+  - `docs/07_PLUGIN_CONTRACT.md` proposes two integration levels:
+    - **Level 1:** In-process Python library (`VoiceAssistant`, `@tool`).
+    - **Level 2:** Local WebSocket sidecar (`python -m voicecore --serve --port 8765`) for non-Python frontends (Tauri in Rust, Electron in TypeScript).
+  - VYKE in P0 is pure Python.
+- **Resolution:**
+  - Level 1 fulfills 100% of P0 requirements with zero-IPC overhead, zero serialization latency, synchronous event callbacks, and in-memory policy enforcement.
+  - Level 2 is architecturally specified in `docs/07_PLUGIN_CONTRACT.md` and deferred until a non-Python frontend host is introduced in P1.
+
+

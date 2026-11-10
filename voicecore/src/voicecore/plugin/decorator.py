@@ -39,3 +39,4 @@ def tool(
         # Used as @tool without parenthesis
         return decorator(fn)
     return decorator
+
